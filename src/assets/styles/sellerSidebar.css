@@ -1,0 +1,108 @@
+/* Sidebar Container */
+.seller-sidebar {
+    width: 70px; /* Default collapsed width */
+    height: 100vh;
+    background: rgb(244, 253, 255);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease-in-out;
+    border-radius: 0 0.5rem 0.5rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Expanded Sidebar */
+  .seller-sidebar.expanded {
+    width: 250px; /* Expanded width */
+  }
+  
+  /* Sidebar Content */
+  .sidebar-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 10px;
+  }
+  
+  /* Menu Item */
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  
+  .menu-item:hover {
+    background: #769cb2;
+    color: white;
+  }
+  
+  /* Active Menu Item */
+  .menu-item.active {
+    background: #769cb2;
+    font-weight: 600;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  /* Menu Icon */
+  .menu-icon {
+    font-size: 22px;
+    color: rgb(0, 0, 0);
+    transition: margin-right 0.3s ease-in-out;
+  }
+  
+  /* Menu Label (Initially Hidden) */
+  .menu-label {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out;
+    margin-left: 10px;
+    color: black;
+  }
+  
+  /* Show Menu Label when Expanded */
+  .seller-sidebar.expanded .menu-label {
+    opacity: 1;
+  }
+  
+  /* Three-Line Toggle Button */
+  .toggle-button {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    color: black;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .seller-sidebar {
+      width: 60px;
+    }
+  
+    .seller-sidebar.expanded {
+      width: 200px;
+    }
+  
+    .menu-label {
+      display: none;
+    }
+  
+    .seller-sidebar.expanded .menu-label {
+      display: block;
+    }
+  }
+  

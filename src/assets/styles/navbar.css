@@ -1,0 +1,288 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #769cb2;
+  padding: 15px 20px;
+  color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo .brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Navbar Links */
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 19px;
+  font-weight: 500;
+  margin: 10px;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #313131;
+}
+
+/* Dropdown Menu Styles */
+.nav-link {
+  position: relative;
+}
+
+.dropdown-card {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f1fdfefd;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 1rem;
+  /* margin-top: 0.5rem; */
+  z-index: 1000;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.dropdown-section {
+  margin-right: 40px;
+}
+
+.dropdown-section h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.dropdown-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-section ul li {
+  margin-bottom: 8px;
+  color: #515151;
+  font-size: 14px;
+}
+
+.dropdown-section ul li:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+/* Search Bar */
+.navbar-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+ .navbar-search input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  width: 200px;
+} 
+
+.navbar-search button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: white;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.navbar-search button:hover {
+  color: #313131;
+}
+
+/* Icons */
+.navbar-icons {
+  display: flex;
+  gap: 30px;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.navbar-icons a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.navbar-icons a:hover {
+  color: #313131;
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Mobile Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  padding-top: 20px;
+  z-index: 1001;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #007bff;
+}
+
+/* Profile Sidebar */
+.profile-sidebar {
+  position: fixed;
+  top: 60px;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: rgb(244, 253, 255);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  padding-top: 20px;
+  z-index: 1001;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.profile-sidebar.open {
+  right: 0;
+}
+
+.profile-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-sidebar ul li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+.profile-sidebar .profile-icon{
+  color: black;
+}
+
+.profile-sidebar ul li:hover {
+  background-color: #769cb2;
+}
+.profile-sidebar ul li:hover a{
+  color: white;  
+}
+.profile-sidebar ul li:hover .profile-icon{
+  color: white;
+}
+/* Profile Toggle Button */
+.profile-toggle {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  border-radius: 5px;
+}
+
+.profile-toggle:hover {
+  color: #313131;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-search {
+    display: none;
+  }
+
+  .navbar-icons {
+    gap: 15px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .profile-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .profile-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .fa-user-logo {
+    display: none;
+  }
+}
+

@@ -1,0 +1,189 @@
+.product-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    min-width: 300px;
+    width: 65%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 60px auto 0 auto;
+
+}
+
+.form-group {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.half-width {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #232321;
+}
+
+input,
+textarea,
+select {
+    padding: 10px 16px;
+    border: 1px solid #232321;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #79767c;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 180px;
+    resize: none;
+}
+
+/* .tags-container {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #232321;
+    border-radius: 8px;
+    min-height: 67px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    background: #36323b;
+    color: #e9e9ea;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    font-weight: 400;
+  } */
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #36323b;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #79767c;
+}
+
+
+
+/* General Styles */
+
+
+/* URL Input Section */
+.url-input-area {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+.url-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100vw;
+}
+
+.btn-add {
+    padding: 8px 12px;
+    background-color: #4b748b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+    width: 13rem;
+}
+
+.btn-add:hover {
+    background-color: #2f536c;
+}
+
+/* Display Added URLs */
+.uploaded-urls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.url-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+}
+
+.url-item:hover {
+    background-color: #eef6f9;
+    transform: scale(1.02);
+}
+
+/* Image Preview */
+
+/* File Info */
+.file-info {
+    flex: 1;
+    word-break: break-word;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Actions (Check & Delete Icons) */
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.check-icon {
+    color: green;
+    font-size: 1.2rem;
+}
+
+.delete-icon {
+    color: red;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.delete-icon:hover {
+    color: darkred;
+}
