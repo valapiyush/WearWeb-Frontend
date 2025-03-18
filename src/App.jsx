@@ -1,8 +1,8 @@
 import {Routes, Route, useLocation} from 'react-router-dom';
 // import { Navbar } from './components/Navbar';
 import { SignupLoginForm } from "../src/components/common/SignupLoginForm";
-import './styles/navbar.css';
-import './styles/signupLoginForm.css';
+import './assets/styles/navbar.css';
+import './assets/styles/signupLoginForm.css';
 import HomePage from '../src/components/user/HomePage';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,6 +16,7 @@ import { AddNewProduct } from './components/seller/AddNewProduct';
 import { Navbar } from './components/user/Navbar';
 import SellerNavbar from './components/seller/SellerNavbar';
 import { ViewMyProducts } from './components/seller/ViewMyProducts';
+import { Cart } from './components/user/Cart';
 
 
 
@@ -43,6 +44,7 @@ function App() {
           <Route  path="/loginsignup" element={<SignupLoginForm />} /> 
           <Route  path="/forgotpassword" element={<ForgotPasswordPage />} /> 
           <Route  path="/homepage" element={<HomePage />} /> 
+          <Route  path="/cart" element={<Cart />} /> 
 
           <Route path='' element={<PrivateRoutes/>}>
             <Route  path="/addProduct" element={<AddProduct />} />

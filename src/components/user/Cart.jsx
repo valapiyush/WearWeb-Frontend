@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../assets/styles/cart.css";
-import image1 from "../images/image1.png";
+import "../../assets/styles/cart.css";
+import image1 from "../../images/image1.png";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 
@@ -19,21 +19,7 @@ export const Cart = () => {
       mark: "Product Mark",
       price: 1699,
       quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Product Name",
-      mark: "Product Mark",
-      price: 1799,
-      quantity: 1,
-    },
-    {
-      id: 4,
-      name: "Product Name",
-      mark: "Product Mark",
-      price: 1899,
-      quantity: 1,
-    },
+    }
   ]);
 
   const [shippingFee] = useState(50); // Set shipping fee

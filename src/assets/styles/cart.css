@@ -11,10 +11,10 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 15px;
-    border-bottom: 2px solid #f6f7f8;
+    border-bottom: 2px solid #000000;
     font-weight: 500;
     font-size: 20px;
-    color: #ffffff;
+    color: #000000;
     width: 100%;
     margin-bottom: 20px;
     
@@ -106,7 +106,7 @@
   
   /* Cart Summary Section */
   .cart-summary {
-    /* width: 300px;  */
+    width: 500px; 
     height: 30rem; /* Fixed height */
     background: #f0f0f0;
     border: 1px solid #000;

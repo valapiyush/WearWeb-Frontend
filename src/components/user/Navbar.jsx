@@ -238,7 +238,7 @@ export const Navbar = () => {
         <a href="#wishlist">
           <FaHeart />
         </a>
-        <a href="#cart">
+        <a href="/cart">
           <FaShoppingCart />
         </a>
         <Link to="/loginsignup" className='fa-user-logo'>
