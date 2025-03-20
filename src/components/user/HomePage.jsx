@@ -1,7 +1,7 @@
 // import React from "react";
 import "../../assets/styles/homepage.css";
 import Slider from "react-slick";
-import { Navbar } from "./Navbar";
+import Navbar from "./Navbar";
 import { PrimaryNavbar } from "../common/PrimaryNavbar";
 
 const HomePage = () => {
@@ -15,9 +15,10 @@ const HomePage = () => {
     autoplaySpeed: 3000, // Change the speed of the autoplay
   };
   const isLoggedIn = localStorage.getItem("id") !== null;
+  const role = localStorage.getItem("role");
   return (
     <>
-      {isLoggedIn ? <Navbar /> : <PrimaryNavbar />}{" "}
+      {isLoggedIn && role === "User" ? <Navbar /> : <PrimaryNavbar />}
       <div className="homepage-container">
         {/* Hero Section */}
         <section className="hero-section">

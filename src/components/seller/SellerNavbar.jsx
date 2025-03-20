@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../assets/styles/sellerNavbar.css";
 import { FaSearch, FaBell, FaUser, FaBars, FaTimes, FaSignOutAlt, FaAngleRight } from "react-icons/fa";
-import Sidebar from "../user/Sidebar";
+import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {

@@ -4,7 +4,7 @@ import { FaSearch, FaHeart, FaShoppingCart, FaUser, FaTimes, FaBars, FaCog, FaBo
 import { MdCardGiftcard, MdContactSupport } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
-export const Navbar = () => {
+const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const profileSidebarRef = useRef(null); // Ref for the profile sidebar
@@ -280,7 +280,7 @@ export const Navbar = () => {
       {/* Profile Sidebar (for big screens) */}
       <div ref={profileSidebarRef} className={`profile-sidebar ${profileSidebarOpen ? 'open' : ''}`}>
         <ul>
-          <li><FaUser className='profile-icon' /> <Link to="/loginsignup">Profile</Link></li>
+          <li><FaUser className='profile-icon' /> <Link to="/profile">Profile</Link></li>
           <li><FaBox className='profile-icon'/> <Link to="/orders">Orders</Link></li>
           <li><FaCog className='profile-icon' /> <Link to="/settings">Settings</Link></li>
           <li><MdCardGiftcard className='profile-icon' /> <Link to="#">GiftCards</Link></li>
@@ -291,3 +291,4 @@ export const Navbar = () => {
     </nav>
   );
 };
+export default Navbar;

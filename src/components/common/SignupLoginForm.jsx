@@ -21,11 +21,8 @@ export const SignupLoginForm = () => {
         password: loginData.password,
         role_id: loginData.role || "67bd469cef31516d015d5fe6",  // Ensure role_id is included
     };
-    console.log(userData);
       const res = await axios.post("/users/login",userData);
 
-      console.log(res);
-      console.log(res.data);
       if(res.status===200){
         toast.success("Logged in successfully", {
           position: "top-center",

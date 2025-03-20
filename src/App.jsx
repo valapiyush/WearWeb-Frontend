@@ -1,64 +1,82 @@
-import {Routes, Route, useLocation} from 'react-router-dom';
-// import { Navbar } from './components/Navbar';
-import { SignupLoginForm } from "../src/components/common/SignupLoginForm";
-import './assets/styles/navbar.css';
-import './assets/styles/signupLoginForm.css';
-import HomePage from '../src/components/user/HomePage';
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useRole } from "./components/context/RoleContext";
+
+import { SignupLoginForm } from "./components/common/SignupLoginForm";
+import ForgotPasswordPage from "./components/common/ForgotPasswordPage";
+
+import HomePage from "./components/user/HomePage";
+import { Cart } from "./components/user/Cart";
+import Navbar from "./components/user/Navbar";
+
+import SellerNavbar from "./components/seller/SellerNavbar";
+import AdminNavbar from "./components/admin/AdminNavbar";
+
+import DashboardLayout from "./components/seller/SellerDashboard/DashboardLayout";
+import { AddNewProduct } from "./components/seller/AddNewProduct";
+import { ViewMyProducts } from "./components/seller/ViewMyProducts";
+// import { AddProduct } from "./components/seller/AddProduct";
+
+import PrivateRoutes from "./components/hooks/PrivateRoutes";
+import "./assets/styles/navbar.css";
+import "./assets/styles/signupLoginForm.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ForgotPasswordPage from '../src/components/common/ForgotPasswordPage';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { AddProduct } from './components/seller/AddProduct';
-import PrivateRoutes from './components/hooks/PrivateRoutes';
-import DashboardLayout from './components/seller/SellerDashboard/DashboardLayout';
-import { AddNewProduct } from './components/seller/AddNewProduct';
-import { Navbar } from './components/user/Navbar';
-import SellerNavbar from './components/seller/SellerNavbar';
-import { ViewMyProducts } from './components/seller/ViewMyProducts';
-import { Cart } from './components/user/Cart';
-
-
+import Profile from "./components/user/Profile";
 
 function App() {
   const location = useLocation();
+  const { role } = useRole();
+  const [currentNavbar, setCurrentNavbar] = useState(null);
 
   useEffect(() => {
-    if (location.pathname === "/loginsignup") {
-      document.body.className = ""; // Remove the unwanted class for login and signup
-    } else {
-      document.body.className =
-        "body"; // Add the class for the rest of the pages
-    }
+    document.body.className = location.pathname === "/loginsignup" ? "" : "body";
   }, [location.pathname]);
-  const showSellerNavbar = location.pathname.startsWith("/seller"); 
+
+  useEffect(() => {
+    if (role === "Seller") {
+      setCurrentNavbar(<SellerNavbar />);
+    } else if (role === "Admin") {
+      setCurrentNavbar(<AdminNavbar />);
+    } else {
+      setCurrentNavbar(<Navbar />);
+    }
+  }, [role]);
+
   axios.defaults.baseURL = "http://localhost:3000";
+
   return (
     <>
-    {/* Render Navbar only if on a seller page */}
-    {showSellerNavbar && <SellerNavbar />}
-      <div className={location.pathname === "/loginsignup" ? "" : "App"}>
-        
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route  path="/loginsignup" element={<SignupLoginForm />} /> 
-          <Route  path="/forgotpassword" element={<ForgotPasswordPage />} /> 
-          <Route  path="/homepage" element={<HomePage />} /> 
-          <Route  path="/cart" element={<Cart />} /> 
+      {location.pathname !== "/loginsignup" && currentNavbar}
 
-          <Route path='' element={<PrivateRoutes/>}>
-            <Route  path="/addProduct" element={<AddProduct />} />
+      <div className="App">
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/loginsignup" element={<SignupLoginForm />} />
+          <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+          <Route element={<PrivateRoutes allowedRoles={["User"]}/>}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
-          <Route path='' element={<PrivateRoutes/>}>
-            <Route path='' element={<Navbar/>}/>
-            <Route path="/seller/dashboard" element = {<DashboardLayout/>}/>
-            <Route path="/seller/addnewproduct" element = {<AddNewProduct/>}/>
-            <Route path="/seller/viewmyproducts" element = {<ViewMyProducts/>}/>
+
+          {/* 🔥 Protected Seller Routes */}
+          <Route element={<PrivateRoutes allowedRoles={["Seller"]} />}>
+            <Route path="/seller/dashboard" element={<DashboardLayout />} />
+            <Route path="/seller/addnewproduct" element={<AddNewProduct />} />
+            <Route path="/seller/viewmyproducts" element={<ViewMyProducts />} />
+          </Route>
+
+          {/* 🔥 Protected Admin Routes */}
+          <Route element={<PrivateRoutes allowedRoles={["Admin"]} />}>
+            <Route path="/admin/dashboard" element={<DashboardLayout />} />
+            {/* Add admin-only routes here */}
           </Route>
         </Routes>
       </div>
     </>
-  
   );
 }
 

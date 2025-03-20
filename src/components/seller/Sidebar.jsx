@@ -62,7 +62,7 @@ const Sidebar = () => {
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaBoxOpen className="menu-icon" />
-          {isExpanded && <Link to="/addnewproduct" className="menu-label">Products</Link>}
+          {isExpanded && <Link to="/seller/addnewproduct" className="menu-label">Products</Link>}
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaBoxOpen className="menu-icon" />
