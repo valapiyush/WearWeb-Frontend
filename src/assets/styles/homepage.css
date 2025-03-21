@@ -123,8 +123,8 @@
 .product-btn {
   background: #4b748b;
   color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 10px 15px;
+  font-size: 0.8rem;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -134,6 +134,10 @@
 .product-btn:hover {
   background: #2f536c;
   transform: scale(1.05);
+}
+.buy-cart-btn{
+  display: flex;  
+  justify-content: space-between;
 }
 
 .wishlist-icon {

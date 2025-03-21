@@ -3,7 +3,7 @@ import "../../assets/styles/homepage.css";
 import Slider from "react-slick";
 import Navbar from "./Navbar";
 import { PrimaryNavbar } from "../common/PrimaryNavbar";
-import { FaHeart } from "react-icons/fa"; 
+import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 
 const HomePage = () => {
@@ -11,12 +11,13 @@ const HomePage = () => {
   const isLoggedIn = localStorage.getItem("id") !== null;
   const role = localStorage.getItem("role");
   const userId = localStorage.getItem("id");
-  
+
   useEffect(() => {
     if (userId) {
-      axios.get(`/api/wishlist/${userId}`)
-        .then(response => setWishlist(response.data))
-        .catch(error => console.error("Error fetching wishlist:", error));
+      axios
+        .get(`/api/wishlist/${userId}`)
+        .then((response) => setWishlist(response.data))
+        .catch((error) => console.error("Error fetching wishlist:", error));
     }
   }, [userId]);
 
@@ -29,56 +30,92 @@ const HomePage = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
-  
+
   const toggleWishlist = async (productId) => {
     if (!userId) {
       alert("Please log in to manage your wishlist.");
       return;
     }
-  
+
     // 🔥 Convert productId to a string (MongoDB ObjectId)
     const productObjectId = "67c90529df09578e6750fd18".toString();
-  
+
     console.log("Clicked Wishlist Button for Product:", productObjectId);
     console.log("Current userId:", userId);
-  
+
     const isInWishlist = wishlist.includes(productObjectId);
     try {
       if (isInWishlist) {
         console.log("Removing from wishlist:", productObjectId);
-        await axios.delete(`/wishlist/remove/${productObjectId}`, { data: { userId } });
-        setWishlist(wishlist.filter(id => id !== productObjectId));
+        await axios.delete(`/wishlist/remove/${productObjectId}`, {
+          data: { userId },
+        });
+        setWishlist((prev) => prev.filter((id) => id !== productObjectId));
       } else {
         console.log("Adding to wishlist:", productObjectId);
-  
+
         // 🔍 Debug before sending
-        console.log("Sending request with:", { user_id: String(userId), product_id: productObjectId });
-  
-        const response = await axios.post("/wishlist/add", {
-          user_id: String(userId),  // Ensure it's a string
+        console.log("Sending request with:", {
+          user_id: String(userId),
           product_id: productObjectId,
         });
-  
+
+        const response = await axios.post("/wishlist/add", {
+          user_id: String(userId), // Ensure it's a string
+          product_id: productObjectId,
+        });
+
         console.log("Response from Server:", response.data);
-        setWishlist([...wishlist, productObjectId]);
+        setWishlist((prev) => [...prev, productObjectId]);
       }
     } catch (error) {
-      console.error("Error updating wishlist:", error.response?.data || error.message);
+      console.error(
+        "Error updating wishlist:",
+        error.response?.data || error.message
+      );
     }
   };
-  
-  
-  
-  
-  
-
+  const handleAddToCart = (productId) => {
+    console.log("Adding to cart:", productId);
+    
+  };
   const products = [
-    { id: 1, name: "Casual Wear", desc: "Stylish & Comfortable", img: "../../public/images/image.png" },
-    { id: 2, name: "Printed Shirt", desc: "Stylish & Comfortable", img: "../../public/images/image1.png" },
-    { id: 3, name: "Women Shirt", desc: "Premium Quality", img: "../../public/images/image2.png" },
-    { id: 4, name: "Formal Suit", desc: "Elegant & Trendy", img: "../../public/images/image.png" },
-    { id: 5, name: "Designer Dress", desc: "Premium Quality", img: "../../public/images/image1.png" },
-    { id: 6, name: "Designer Dress", desc: "Premium Quality", img: "../../public/images/image2.png" }
+    {
+      id: "67c90529df09578e6750fd18",
+      name: "Casual Wear",
+      desc: "Stylish & Comfortable",
+      img: "/images/image.png",
+    },
+    {
+      id: 2,
+      name: "Printed Shirt",
+      desc: "Stylish & Comfortable",
+      img: "/images/image1.png",
+    },
+    {
+      id: 3,
+      name: "Women Shirt",
+      desc: "Premium Quality",
+      img: "/images/image2.png",
+    },
+    {
+      id: 4,
+      name: "Formal Suit",
+      desc: "Elegant & Trendy",
+      img: "/images/image.png",
+    },
+    {
+      id: 5,
+      name: "Designer Dress",
+      desc: "Premium Quality",
+      img: "/images/image1.png",
+    },
+    {
+      id: 6,
+      name: "Designer Dress",
+      desc: "Premium Quality",
+      img: "/images/image2.png",
+    },
   ];
 
   return (
@@ -110,10 +147,15 @@ const HomePage = () => {
           <div className="products-grid">
             {products.map((product) => (
               <div key={product.id} className="product-card">
-                <img src={product.img} alt={product.name} className="product-image" />
-                
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="product-image"
+                />
+
                 <FaHeart
-                  className={`wishlist-icon ${wishlist.includes(product.id) ? "liked" : ""}`}
+                //  className={`wishlist-icon ${wishlist.some(id => id === String(product.id)) ? "liked" : ""}`}
+                 className={`wishlist-icon ${wishlist.some(id => id === "67c90529df09578e6750fd18") ? "liked" : ""}`}
                   onClick={() => toggleWishlist(product.id)}
                 />
 
@@ -129,16 +171,25 @@ const HomePage = () => {
           <div className="products-grid">
             {products.map((product) => (
               <div key={product.id} className="product-card">
-                <img src={product.img} alt={product.name} className="product-image" />
-                
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="product-image"
+                />
+
                 <FaHeart
-                  className={`wishlist-icon ${wishlist.includes(product.id) ? "liked" : ""}`}
+                  className={`wishlist-icon ${
+                    wishlist.includes(product.id) ? "liked" : ""
+                  }`}
                   onClick={() => toggleWishlist(product.id)}
                 />
 
                 <h3>{product.name}</h3>
                 <p>{product.desc}</p>
+                <div className="buy-cart-btn">
+                <button className="product-btn" onClick={(product) => handleAddToCart(product)}>Add To Cart</button>
                 <button className="product-btn">Buy Now</button>
+                </div>
               </div>
             ))}
           </div>
@@ -148,10 +199,16 @@ const HomePage = () => {
           <div className="products-grid">
             {products.map((product) => (
               <div key={product.id} className="product-card">
-                <img src={product.img} alt={product.name} className="product-image" />
-                
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="product-image"
+                />
+
                 <FaHeart
-                  className={`wishlist-icon ${wishlist.includes(product.id) ? "liked" : ""}`}
+                  className={`wishlist-icon ${
+                    wishlist.includes(product.id) ? "liked" : ""
+                  }`}
                   onClick={() => toggleWishlist(product.id)}
                 />
 

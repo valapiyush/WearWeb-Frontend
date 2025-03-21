@@ -8,7 +8,7 @@ export const KidsWear = () => {
           <div className="products-grid">
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -18,7 +18,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image1.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />
@@ -28,7 +28,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image2.png"
+                src="/images/image2.png"
                 alt="Product"
                 className="product-image"
               />
@@ -38,7 +38,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -48,7 +48,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -63,7 +63,7 @@ export const KidsWear = () => {
           <div className="products-grid">
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -73,7 +73,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image1.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />
@@ -83,7 +83,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image2.png"
+                src="/images/image2.png"
                 alt="Product"
                 className="product-image"
               />
@@ -93,7 +93,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -103,7 +103,7 @@ export const KidsWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />

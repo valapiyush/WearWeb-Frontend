@@ -3,12 +3,13 @@ import React from 'react'
 export const MensWear = () => {
   return (
     <div className='homepage-container'>
-         <section className="products-section">
+         
+        <section className="products-section">
           <h2>Men&apos;s Wear</h2>
           <div className="products-grid">
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -18,7 +19,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image1.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />
@@ -28,7 +29,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image2.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -38,7 +39,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="images/image2.png"
                 alt="Product"
                 className="product-image"
               />
@@ -48,7 +49,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />
@@ -63,7 +64,7 @@ export const MensWear = () => {
           <div className="products-grid">
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -73,7 +74,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image1.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />
@@ -83,7 +84,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image2.png"
+                src="/images/image.png"
                 alt="Product"
                 className="product-image"
               />
@@ -93,7 +94,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="images/image2.png"
                 alt="Product"
                 className="product-image"
               />
@@ -103,7 +104,7 @@ export const MensWear = () => {
             </div>
             <div className="product-card">
               <img
-                src="../src/images/image.png"
+                src="/images/image1.png"
                 alt="Product"
                 className="product-image"
               />

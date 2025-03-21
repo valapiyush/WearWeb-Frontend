@@ -264,12 +264,12 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-icons">
-        <a href="/wishlist">
+        <Link to="/wishlist">
           <FaHeart />
-        </a>
-        <a href="/cart">
+        </Link>
+        <Link to="/cart">
           <FaShoppingCart />
-        </a>
+        </Link>
         <Link to="/loginsignup" className='fa-user-logo'>
           <FaUser />
         </Link>
