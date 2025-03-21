@@ -7,6 +7,8 @@ import { useRole } from "./components/context/RoleContext";
 import { SignupLoginForm } from "./components/common/SignupLoginForm";
 import ForgotPasswordPage from "./components/common/ForgotPasswordPage";
 
+import {MensWear} from "./components/user/MensWear";
+import {WomensWear} from "./components/user/WomensWear";
 import HomePage from "./components/user/HomePage";
 import { Cart } from "./components/user/Cart";
 import Navbar from "./components/user/Navbar";
@@ -25,6 +27,8 @@ import "./assets/styles/signupLoginForm.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Profile from "./components/user/Profile";
+import KidsWear from "./components/user/KidsWear";
+import WishList from "./components/user/WishList";
 
 function App() {
   const location = useLocation();
@@ -56,12 +60,15 @@ function App() {
           {/* Public Routes */}
           <Route path="/loginsignup" element={<SignupLoginForm />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-          
           <Route path="/" element={<HomePage />} />
+          <Route path="/menswear" element={<MensWear/>} />
+          <Route path="/womenswear" element={<WomensWear/>} />
+          <Route path="/kidswear" element={<KidsWear/>} />
           {/*  Protected User Routes */}
           <Route element={<PrivateRoutes allowedRoles={["User"]}/>}>
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/wishlist" element={<WishList />} />
           </Route>
 
           {/*  Protected Seller Routes */}

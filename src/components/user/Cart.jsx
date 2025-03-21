@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../assets/styles/cart.css";
-import image1 from "../../images/image1.png";
+import image1 from "../../../public/images/image1.png";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 

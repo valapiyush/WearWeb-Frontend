@@ -71,7 +71,7 @@ const Navbar = () => {
           onMouseEnter={() => setIsMenHovered(true)}
           onMouseLeave={() => setIsMenHovered(false)}
         >
-          <Link to="#men">Men</Link>
+          <Link to="/menswear">Men</Link>
           {isMenHovered && (
             <div className="dropdown-card">
               <div className="dropdown-section">
@@ -121,7 +121,7 @@ const Navbar = () => {
           onMouseEnter={() => setIsWomenHovered(true)}
           onMouseLeave={() => setIsWomenHovered(false)}
         >
-          <Link to="#women">Women</Link>
+          <Link to="/womenswear">Women</Link>
           {isWomenHovered && (
             <div className="dropdown-card">
               <div className="dropdown-section">
@@ -170,7 +170,7 @@ const Navbar = () => {
           onMouseEnter={() => setIsKidsHovered(true)}
           onMouseLeave={() => setIsKidsHovered(false)}
         >
-          <Link to="#kids">Kids</Link>
+          <Link to="/kidswear">Kids</Link>
           {isKidsHovered && (
             <div className="dropdown-card">
               <div className="dropdown-section">
@@ -264,7 +264,7 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-icons">
-        <a href="#wishlist">
+        <a href="/wishlist">
           <FaHeart />
         </a>
         <a href="/cart">
