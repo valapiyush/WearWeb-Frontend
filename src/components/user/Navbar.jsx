@@ -88,6 +88,7 @@ const Navbar = () => {
                   <li>Rain Jackets</li>
                 </ul>
               </div>
+              
               <div className="dropdown-section">
                 <h4>Bottomwear</h4>
                 <ul>
@@ -96,6 +97,20 @@ const Navbar = () => {
                   <li>Formal Trousers</li>
                   <li>Shorts</li>
                   <li>Track Pants & Joggers</li>
+                </ul>
+              </div>
+              <div className="dropdown-section">
+                <h4>Topwear</h4>
+                <ul>
+                  <li>Tops</li>
+                  <li>Casual Shirts</li>
+                  <li>Formal Shirts</li>
+                  <li>Sweatshirts</li>
+                  <li>Sweaters</li>
+                  <li>Jackets</li>
+                  <li>Blazers & Coats</li>
+                  <li>Suits</li>
+                  <li>Rain Jackets</li>
                 </ul>
               </div>
             </div>
@@ -109,6 +124,20 @@ const Navbar = () => {
           <Link to="#women">Women</Link>
           {isWomenHovered && (
             <div className="dropdown-card">
+              <div className="dropdown-section">
+                <h4>Topwear</h4>
+                <ul>
+                  <li>Tops</li>
+                  <li>Casual Shirts</li>
+                  <li>Formal Shirts</li>
+                  <li>Sweatshirts</li>
+                  <li>Sweaters</li>
+                  <li>Jackets</li>
+                  <li>Blazers & Coats</li>
+                  <li>Suits</li>
+                  <li>Rain Jackets</li>
+                </ul>
+              </div>
               <div className="dropdown-section">
                 <h4>Topwear</h4>
                 <ul>

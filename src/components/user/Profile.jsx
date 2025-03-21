@@ -1,71 +1,271 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-// import { useRole } from "../context/RoleContext";
+import "../../assets/styles/userprofile.css";
 
 const Profile = () => {
-  const id = localStorage.getItem("id");
-  const role = localStorage.getItem("role");
-  const [userData, setUserData] = useState({
+  const [user, setUser] = useState({
     first_name: "",
     last_name: "",
-    role: role || "User",
     gender: "",
-    age: "",
+    age: Number,
+    contact_number: "",
+    title: "",
+    unit_name: "",
+    street: "",
+    pincode: "",
+    city: "",
+    state: "",
+    country: "",
   });
+
+  const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const userId = localStorage.getItem("id");
+
   useEffect(() => {
-    if (id) {
-      axios
-        .get(`/user-details/user-details/${id}`)
-        .then((response) => {
-          setUserData(response.data.data);
-        })
-        .catch((error) => console.error("Error fetching profile:", error));
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(
+          `/user-details/user-details/${userId}`
+        );
+        setUser(response.data.data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
+
+  // Handle Input Change
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]:
+        e.target.name === "age" ? Number(e.target.value) : e.target.value,
+    });
+  };
+
+  // Handle Update User
+  const handleUpdate = async () => {
+    try {
+      await axios.put(`/user-details/update/${userId}`, user);
+      alert("Profile updated successfully!");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile.");
     }
-  }, [id]); // Runs whenever `id` changes
+  };
+
+  if (loading) {
+    return <div className="loading">Loading profile...</div>;
+  }
+
+  if (!user) {
+    return <div className="error-message">User not found.</div>;
+  }
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <div className="flex items-center space-x-4">
-        <div>
-          <h2 className="text-xl font-semibold">
-            {userData.first_name || "User"}
-          </h2>
-          <p className="text-gray-500">{userData.last_name}</p>
-          <span className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded">
-            {userData.role}
-          </span>
+    <div className="profile-container">
+      <h2 className="profile-title">User Profile</h2>
+
+      <div className="profile-grid">
+        {/* User Name */}
+        <div className="profile-field">
+          <p className="field-label">First Name</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="first_name"
+              value={user.first_name}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.first_name}</p>
+          )}
+        </div>
+
+        <div className="profile-field">
+          <p className="field-label">Last Name</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="last_name"
+              value={user.last_name}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.last_name}</p>
+          )}
+        </div>
+
+        {/* Gender */}
+        <div className="profile-field">
+          <p className="field-label">Gender</p>
+          {isEditing ? (
+            <select
+              name="gender"
+              value={user.gender}
+              onChange={handleChange}
+              className="edit-input"
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          ) : (
+            <p className="field-value">{user.gender}</p>
+          )}
+        </div>
+
+        {/* Age */}
+        <div className="profile-field">
+          <p className="field-label">Age</p>
+          {isEditing ? (
+            <input
+              type="number"
+              name="age"
+              value={user.age}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.age}</p>
+          )}
+        </div>
+
+        {/* Contact */}
+        <div className="profile-field">
+          <p className="field-label">Contact Number</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="contact_number"
+              value={user.contact_number}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.contact_number}</p>
+          )}
+        </div>
+
+        {/* Title */}
+        <div className="profile-field">
+          <p className="field-label">Address Type</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="title"
+              value={user.title}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.title}</p>
+          )}
+        </div>
+
+        {/* Address */}
+        <div className="profile-field full-width">
+          <p className="field-label">Address</p>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                name="unit_name"
+                value={user.unit_name}
+                onChange={handleChange}
+                className="edit-input full-width"
+              />
+              <input
+                type="text"
+                name="street"
+                value={user.street}
+                onChange={handleChange}
+                className="edit-input full-width"
+              />
+              <input
+                type="text"
+                name="pincode"
+                value={user.pincode}
+                onChange={handleChange}
+                className="edit-input full-width"
+              />
+            </>
+          ) : (
+            <p className="field-value">
+              {user.unit_name}, {user.street}, {user.pincode}
+            </p>
+          )}
+        </div>
+
+        {/* City, State, Country */}
+        <div className="profile-field">
+          <p className="field-label">City</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="city"
+              value={user.city_id.name}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.city_id.name}</p>
+          )}
+        </div>
+        <div className="profile-field">
+          <p className="field-label">State</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="state"
+              value={user.state_id.name}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.state_id.name}</p>
+          )}
+        </div>
+        <div className="profile-field">
+          <p className="field-label">Country</p>
+          {isEditing ? (
+            <input
+              type="text"
+              name="country"
+              value={user.country_id.name}
+              onChange={handleChange}
+              className="edit-input"
+            />
+          ) : (
+            <p className="field-value">{user.country_id.name}</p>
+          )}
         </div>
       </div>
 
-      {/* Profile Details */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold">Profile Details</h3>
-        <h2 className="text-xl font-semibold">
-          {userData?.first_name || "User"}
-        </h2>
-        <p className="text-gray-500">{userData?.last_name || "N/A"}</p>
-        <p>
-          <strong>First Name:</strong> {userData?.first_name || "N/A"}
-        </p>
-        <p>
-          <strong>Last Name:</strong> {userData?.last_name || "N/A"}
-        </p>
-        <p>
-          <strong>Role:</strong> {userData?.role || "N/A"}
-        </p>
-        <p>
-          <strong>Gender:</strong> {userData?.gender || "N/A"}
-        </p>
-        <p>
-          <strong>Age:</strong> {userData?.age || "N/A"}
-        </p>
-      </div>
-
-      {/* Edit Profile Button (Optional) */}
-      <div className="mt-4">
-        <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          Edit Profile
-        </button>
+      {/* Buttons */}
+      <div className="profile-buttons">
+        {isEditing ? (
+          <>
+            <button className="save-btn" onClick={handleUpdate}>
+              Save
+            </button>
+            <button className="cancel-btn" onClick={() => setIsEditing(false)}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button className="edit-btn" onClick={() => setIsEditing(true)}>
+            Edit Profile
+          </button>
+        )}
       </div>
     </div>
   );

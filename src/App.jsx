@@ -54,22 +54,24 @@ function App() {
       <div className="App">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<HomePage />} />
           <Route path="/loginsignup" element={<SignupLoginForm />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+          
+          <Route path="/" element={<HomePage />} />
+          {/*  Protected User Routes */}
           <Route element={<PrivateRoutes allowedRoles={["User"]}/>}>
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 
-          {/* 🔥 Protected Seller Routes */}
+          {/*  Protected Seller Routes */}
           <Route element={<PrivateRoutes allowedRoles={["Seller"]} />}>
             <Route path="/seller/dashboard" element={<DashboardLayout />} />
             <Route path="/seller/addnewproduct" element={<AddNewProduct />} />
             <Route path="/seller/viewmyproducts" element={<ViewMyProducts />} />
           </Route>
 
-          {/* 🔥 Protected Admin Routes */}
+          {/*  Protected Admin Routes */}
           <Route element={<PrivateRoutes allowedRoles={["Admin"]} />}>
             <Route path="/admin/dashboard" element={<DashboardLayout />} />
             {/* Add admin-only routes here */}
