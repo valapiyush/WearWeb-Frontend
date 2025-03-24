@@ -117,6 +117,31 @@ body {
   font-size: 20px;
   pointer-events: none;
 }
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 350px; /* Adjust width as needed */
+}
+
+.password-input {
+  width: 100%;
+  padding: 12px;
+  padding-right: 40px; /* Make space for the eye icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+}
 
 .forgot-link {
   margin: -15px 0 15px;

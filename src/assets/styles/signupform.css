@@ -31,7 +31,9 @@
     font-weight: 500;
     appearance: none;
   }
-  
+ 
+
+
   .input-box input::placeholder,
   .input-box select::placeholder {
     color: var(--placeholder-color);
@@ -46,7 +48,7 @@
     font-size: 20px;
     pointer-events: none;
   }
-  
+
   .role-select {
     background: #eee;
     border-radius: var(--border-radius);

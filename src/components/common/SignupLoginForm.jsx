@@ -5,12 +5,15 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { SignUpForm } from '../common/SignUpForm';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 export const SignupLoginForm = () => {
   const [isActive, setIsActive] = useState(false);
   const [loginData, setLoginData] = useState({});
   const {register, handleSubmit, formState: { errors }} = useForm()
+  const [showPassword, setShowPassword] = useState(false);
+  
 
   const navigate = useNavigate();
   const loginSubmitHandler = async ()=>{
@@ -61,7 +64,7 @@ export const SignupLoginForm = () => {
         });
       }else{
         toast.error('Something went wrong! Please try again.', {
-          position: "top-left",
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: false,
@@ -117,23 +120,27 @@ export const SignupLoginForm = () => {
               type="text"
               placeholder="Username"
               name="username"
-              {...register("username")}
+              {...register("username", {errors: errors.username})}
               value={loginData.username || ''}
               onChange={(e) => handleInputChange(e, setLoginData)}
               required
             />
             <i className="bx bxs-user"></i>
           </div>
-          <div className="input-box">
+          <div className="input-box password-wrapper">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               {...register("password")}
               name="password"
               value={loginData.password || ''}
               onChange={(e) => handleInputChange(e, setLoginData)}
               required
+              className='password-input'
             />
+            <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
             <i className="bx bxs-lock-alt"></i>
           </div>
           <div className="input-box">

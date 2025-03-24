@@ -3,11 +3,13 @@ import  { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const SignUpForm = () => {
     const [signupData, setSignupData] = useState({ role: 'User' });
     const {register, handleSubmit} = useForm()
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const registerSubmitHandler = async (data) => {
         console.log(data);
@@ -19,12 +21,12 @@ export const SignUpForm = () => {
               role_id: signupData.role || "User" 
             };
             console.log("Submitting Data:", userData);
-            const res = await axios.post("/users", userData);
+            const res = await axios.post("/users/signup", userData);
           if(res.status===201){
             navigate("/loginsignup");
     
-            toast.success('User added...!!', {
-              position: "top-left",
+            toast.success('Registered successfully and please login', {
+              position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: false,
@@ -38,8 +40,8 @@ export const SignUpForm = () => {
           }
         } catch (error) {
             console.error(error);
-          toast.error('error in signup..!!', {
-            position: "top-left",
+          toast.error('Registration failed', {
+            position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: false,
@@ -84,16 +86,20 @@ export const SignUpForm = () => {
             />
             <i className="bx bxs-envelope"></i>
           </div>
-          <div className="input-box">
+          <div className="input-box password-wrapper">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="password"
               {...register("password")}
               value={signupData.password}
               onChange={handleInputChange} 
               required
+              className="password-input"
             />
+            <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+            </span>
             <i className="bx bxs-lock-alt"></i>
           </div>
           <div className="input-box">

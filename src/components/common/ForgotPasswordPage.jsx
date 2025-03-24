@@ -13,7 +13,7 @@ export default function ForgotPasswordPage() {
     setError("");
     setMessage("");
     try {
-      const { data } = await axios.post("/api/forgot-password", { email });
+       await axios.post("/users/forgotpassword", { email });
       setMessage("Password reset link sent to your email");
     } catch (err) {
       setError(err.response?.data?.message || "Error sending reset link");
@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
           <button type="submit" className="forgot-password-button">Send Reset Link</button>
         </form>
         <p className="login-link">
-          Remember your password? <Link to="/login">Login</Link>
+          Remember your password? <Link to="/loginsignup">Login</Link>
         </p>
       </div>
     </div>
