@@ -42,7 +42,8 @@ export const AddNewProduct = () => {
   // Fetch all categories
   const getAllCategories = async () => {
     try {
-      const res = await axios.get("/categories");
+      const res = await axios.get("/category/get");
+      console.log(res.data.data);
       setCategories(res.data.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -90,7 +91,7 @@ export const AddNewProduct = () => {
        formData.append("user_id", userId);
        formData.append("image", data.image[0]);
 
-      console.log(FormData);
+      console.log(formData);
       const res = await axios.post("/products/addproduct", formData);
       console.log("Product added successfully:", res.data);
     } catch (error) {

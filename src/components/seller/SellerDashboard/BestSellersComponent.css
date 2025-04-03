@@ -1,0 +1,168 @@
+.best-sellers {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-radius: 16px;
+    padding: 28px 16px 24px 16px;
+    width: 400px;  
+  }
+  
+  .best-seller-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% ;
+  }
+  
+  .best-seller-header h2 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  .menu-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .best-seller-menu-icon{
+
+    width: 17px;
+    height: 17px;
+    fill: #ffffff;
+  }
+  
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background-color: #ffffff;
+  }
+  
+  .sellers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  
+  .seller-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 100%; */
+  
+  }
+  
+  .seller-info {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .seller-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .seller-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .seller-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .seller-details h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  .price {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+    opacity: 0.6;
+  }
+  
+  .sales-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+  }
+  
+  .sale-price {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+  }
+  
+  .sales-count {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+    opacity: 0.6;
+  }
+  
+  .report-button {
+    background-color: #3f8895cb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.2s;
+  }
+  
+  .report-button:hover {
+    background-color: #3f8895;
+  }
+  
+  .menu-button:hover {
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    .best-sellers {
+      min-width: 100%;
+      padding: 20px 12px;
+    }
+  
+    .seller-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .sales-info {
+      text-align: left;
+    }
+  }
+  
+  

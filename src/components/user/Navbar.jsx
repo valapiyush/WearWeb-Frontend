@@ -3,6 +3,7 @@ import '../../assets/styles/navbar.css'; // Import the CSS file
 import { FaSearch, FaHeart, FaShoppingCart, FaUser, FaTimes, FaBars, FaCog, FaBox, FaSignOutAlt  } from 'react-icons/fa'; 
 import { MdCardGiftcard, MdContactSupport } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import ThemeToggle from '../common/ThemeToggle';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +38,11 @@ const Navbar = () => {
     setProfileSidebarOpen(false);
   };
   
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    window.location.href = "/";
+  };
 
   // Close profile sidebar when clicking outside of it
   useEffect(() => {
@@ -273,6 +279,7 @@ const Navbar = () => {
         <Link to="/loginsignup" className='fa-user-logo'>
           <FaUser />
         </Link>
+        {/* <ThemeToggle /> */}
         <button ref={profileToggleRef} onClick={toggleProfileSidebar} className="profile-toggle">
           {profileSidebarOpen ? <FaTimes /> : <FaBars />}
         </button>
@@ -311,10 +318,11 @@ const Navbar = () => {
         <ul>
           <li><FaUser className='profile-icon' /> <Link to="/profile">Profile</Link></li>
           <li><FaBox className='profile-icon'/> <Link to="/orders">Orders</Link></li>
-          <li><FaCog className='profile-icon' /> <Link to="/settings">Settings</Link></li>
+          <li><FaCog className='profile-icon' /> <Link to="/theme">Settings</Link></li>
           <li><MdCardGiftcard className='profile-icon' /> <Link to="#">GiftCards</Link></li>
           <li><MdContactSupport className='profile-icon'/> <Link to="#">ContactUs</Link></li>
-          <li><FaSignOutAlt className='profile-icon'/> <Link to="/loginsignup">Logout</Link></li>
+          <li><FaSignOutAlt className='profile-icon'/> 
+          <a href="#" onClick={handleLogout}>Logout</a></li>
         </ul>
       </div>
     </nav>

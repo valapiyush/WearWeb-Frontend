@@ -1,0 +1,66 @@
+.theme-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 10px;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 25px;
+}
+
+.theme-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ccc;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background: #4b748b;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.icon {
+  position: absolute;
+  top: 3px;
+  font-size: 16px;
+  color: white;
+}
+
+.moon {
+  left: 5px;
+}
+
+.sun {
+  right: 5px;
+}

@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
   const token = useParams().token;
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
     const [error, setError] = useState("");
   const { register, handleSubmit } = useForm();
@@ -16,6 +17,9 @@ export const ResetPasswordPage = () => {
             password: data.password,
           });
           setMessage("Password reset successfully");
+          setTimeout(() => {
+            navigate("/loginsignup");
+          }, 2000);
     }catch(err){
         setError(err.response?.data?.message || "Error sending reset link");
     }

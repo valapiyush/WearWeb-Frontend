@@ -1,112 +1,149 @@
-/* Profile Container */
+/* 🌟 Profile Container */
 .profile-container {
-    width: 60vw;
-    margin: 70px auto;
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 50vw;
+  max-width: 600px;
+  margin: 80px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease-in-out;
+}
+
+.profile-container:hover {
+  transform: translateY(-3px);
+}
+
+/* 🏷️ Profile Title */
+.profile-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2f536c;
+}
+
+/* 🎯 Profile Grid */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* 📌 Profile Field */
+.profile-field {
+  background: #f9f9f9;
+  padding: 14px;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+  border-left: 4px solid #4b748b;
+}
+
+.profile-field:hover {
+  background: #eef5f9;
+  transform: scale(1.02);
+}
+
+/* 🌍 Full-Width Fields (like address) */
+.full-width {
+  grid-column: span 2;
+}
+
+/* 🏷️ Field Label */
+.field-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+/* 🏆 Field Value */
+.field-value {
+  font-size: 17px;
+  font-weight: bold;
+  color: #222;
+}
+
+/* ⏳ Loading & Error Messages */
+.loading,
+.error-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+}
+
+/* 🎨 Buttons Section */
+.profile-buttons {
+  text-align: center;
+  margin-top: 25px;
+}
+
+/* 🛠️ Button Styles */
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  padding: 12px 22px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.edit-btn {
+  background-color: #2f536c;
+  color: white;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-btn:hover,
+.save-btn:hover,
+.cancel-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+/* 🎯 Input Fields (Edit Mode) */
+.edit-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.3s ease-in-out;
+}
+
+.edit-input:focus {
+  border-color: #4b748b;
+  outline: none;
+  box-shadow: 0 0 5px rgba(75, 116, 139, 0.3);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+      width: 90vw;
+      padding: 20px;
   }
-  
-  /* Profile Title */
-  .profile-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* Profile Grid */
+
   .profile-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+      grid-template-columns: 1fr;
   }
-  
-  /* Profile Field */
-  .profile-field {
-    background: #f9f9f9;
-    padding: 12px;
-    border-radius: 6px;
-    transition: 0.3s ease-in-out;
-  }
-  
-  .profile-field:hover {
-    background: #e6e6e6;
-  }
-  
-  /* Full-width fields (like address) */
+
   .full-width {
-    grid-column: span 2;
+      grid-column: span 1;
   }
-  
-  /* Field Label */
-  .field-label {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-  }
-  
-  /* Field Value */
-  .field-value {
-    font-size: 16px;
-    font-weight: bold;
-    color: #222;
-  }
-  
-  /* Loading & Error Messages */
-  .loading, .error-message {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: red;
-  }
-  .profile-buttons {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .edit-btn, .save-btn, .cancel-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: 0.3s;
-  }
-  
-  .edit-btn {
-    background-color: #2f5159;
-    color: white;
-  }
-  
-  .save-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .cancel-btn {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .edit-btn:hover, .save-btn:hover, .cancel-btn:hover {
-    opacity: 0.8;
-  }
-  
-  .edit-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .full-width {
-    grid-column: span 2;
-  }
-  
-  
+}

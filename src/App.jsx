@@ -19,6 +19,7 @@ import AdminNavbar from "./components/admin/AdminNavbar";
 import DashboardLayout from "./components/seller/SellerDashboard/DashboardLayout";
 import { AddNewProduct } from "./components/seller/AddNewProduct";
 import { ViewMyProducts } from "./components/seller/ViewMyProducts";
+import RecentOrders from "./components/seller/SellerDashboard/RecentOrders";
 // import { AddProduct } from "./components/seller/AddProduct";
 
 import PrivateRoutes from "./components/hooks/PrivateRoutes";
@@ -30,6 +31,7 @@ import Profile from "./components/user/Profile";
 import KidsWear from "./components/user/KidsWear";
 import WishList from "./components/user/WishList";
 import { ResetPasswordPage } from "./components/common/ResetPasswordPage";
+import ThemeToggle from "./components/common/ThemeToggle";
 
 function App() {
   const location = useLocation();
@@ -55,6 +57,7 @@ function App() {
 
   return (
     <>
+    
       {!["/loginsignup", "/forgotpassword", "/resetpassword"].some((path) =>
         location.pathname.includes(path)
       ) && currentNavbar}
@@ -66,6 +69,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route path="/resetpassword/:token" element={<ResetPasswordPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/theme" element={<ThemeToggle />} />
           {/*  Protected User Routes */}
           <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
             <Route path="/cart" element={<Cart />} />
@@ -81,6 +85,7 @@ function App() {
             <Route path="/seller/dashboard" element={<DashboardLayout />} />
             <Route path="/seller/addnewproduct" element={<AddNewProduct />} />
             <Route path="/seller/viewmyproducts" element={<ViewMyProducts />} />
+            <Route path="/seller/orders" element={<RecentOrders />} />
           </Route>
 
           {/*  Protected Admin Routes */}

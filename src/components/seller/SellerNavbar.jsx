@@ -19,6 +19,11 @@ const Navbar = () => {
     setPopupOpen(popupOpen === type ? null : type);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    window.location.href = "/";
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -80,8 +85,8 @@ const Navbar = () => {
                 <h3>Admin</h3>
                 <span className="notification-close-button" onClick={() => togglePopup(null)}><FaTimes/></span>
 
-                <Link to="/ChnagePassword ">Chnage Password <FaAngleRight /></Link>
-                <Link to="/logout">Logout <FaSignOutAlt/></Link>
+                <Link to="/forgotpassword">Change Password <FaAngleRight /></Link>
+                <a href="#" onClick={handleLogout}>Logout <FaSignOutAlt /></a>
             </div>
         }
         </div>

@@ -58,7 +58,7 @@ const Sidebar = () => {
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaClipboardList className="menu-icon" />
-          {isExpanded && <Link to="/leaderboard" className="menu-label">Orders</Link>}
+          {isExpanded && <Link to="/seller/orders" className="menu-label">Orders</Link>}
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaBoxOpen className="menu-icon" />

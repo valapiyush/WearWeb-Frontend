@@ -1,0 +1,102 @@
+/* 🖌️ Edit Profile Container */
+.edit-profile-container {
+    width: 60vw;
+    margin: 70px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* 🔵 Title */
+  .edit-profile-title {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* 🎯 Profile Grid */
+  .edit-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 10px 0;
+  }
+  
+  /* ✏️ Input Fields */
+  .edit-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s ease-in-out;
+    background: #f9f9f9;
+  }
+  
+  .edit-input:focus {
+    border: 1px solid #4b748b;
+    outline: none;
+    background: #fff;
+  }
+  
+  /* 📌 Full-width Fields */
+  .edit-input.full-width {
+    grid-column: span 2;
+  }
+  
+  /* 🎨 Buttons */
+  .edit-profile-buttons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .save-btn, .cancel-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* ✅ Save Button */
+  .save-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .save-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* ❌ Cancel Button */
+  .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* 📱 Responsive Design */
+  @media (max-width: 768px) {
+    .edit-profile-container {
+      width: 85vw;
+    }
+  
+    .edit-profile-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .edit-input {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+  

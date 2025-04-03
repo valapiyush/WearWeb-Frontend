@@ -5,21 +5,130 @@ import Navbar from "./Navbar";
 import { PrimaryNavbar } from "../common/PrimaryNavbar";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
+  const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const isLoggedIn = localStorage.getItem("id") !== null;
   const role = localStorage.getItem("role");
   const userId = localStorage.getItem("id");
 
   useEffect(() => {
+    // ✅ Fetch Products
+    axios
+      .get("/products/products")
+      .then((response) => setProducts(response.data.data))
+      .catch((error) => console.error("Error fetching products:", error));
+
+    // ✅ Fetch Wishlist only if user is logged in
     if (userId) {
       axios
-        .get(`/api/wishlist/${userId}`)
-        .then((response) => setWishlist(response.data))
+        .get(`/wishlist/user/${userId}`)
+        .then((response) => {
+          if (Array.isArray(response.data.data)) {
+            setWishlist(response.data.data.map((item) => item.product_id._id));
+          }
+        })
         .catch((error) => console.error("Error fetching wishlist:", error));
     }
   }, [userId]);
+
+  const toggleWishlist = async (productId) => {
+    if (!userId) {
+      alert("Please log in to manage your wishlist.");
+      return;
+    }
+
+    const isInWishlist = wishlist.includes(productId);
+
+    try {
+      if (isInWishlist) {
+        await axios.delete(`/wishlist/remove/${productId}`, {
+          data: { user_id: userId },
+        });
+        setWishlist((prev) => prev.filter((id) => id !== productId));
+        toast.success("❤️ Removed from wishlist", {
+          position: "top-right",
+          autoClose: 1000, // Auto close in 3 sec
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      } else {
+        await axios.post("/wishlist/add", {
+          user_id: userId,
+          product_id: productId,
+        });
+        setWishlist((prev) => [...prev, productId]);
+        toast.success("💖 Added to wishlist", {
+          position: "top-right",
+          autoClose: 1000, // Auto close in 3 sec
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error("Wishlist error:", error);
+      toast.error(" Failed to update wishlist", {
+        position: "top-right",
+        autoClose: 1000, // Auto close in 3 sec
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+    }
+  };
+
+  const handleAddToCart = (productId) => {
+    if (!userId) {
+      toast.success("Please log in to add items to cart.", {
+        position: "top-right",
+        autoClose: 1000, // Auto close in 3 sec
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+      return;
+    }
+
+    axios
+      .post("/cart/add", {
+        user_id: userId,
+        product_id: productId,
+        quantity: 1,
+      })
+      .then(() =>
+        toast.success("🛒 Item added to cart!", {
+          position: "top-right",
+          autoClose: 1000, // Auto close in 3 sec
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        })
+      )
+      .catch(() => toast.error("❌ Failed to add item!"), {
+        position: "top-right",
+        autoClose: 1000, // Auto close in 3 sec
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+      });
+  };
 
   const settings = {
     dots: true,
@@ -31,112 +140,31 @@ const HomePage = () => {
     autoplaySpeed: 3000,
   };
 
-  const toggleWishlist = async (productId) => {
-    if (!userId) {
-      alert("Please log in to manage your wishlist.");
-      return;
-    }
-
-    // 🔥 Convert productId to a string (MongoDB ObjectId)
-    const productObjectId = "67c90529df09578e6750fd18".toString();
-
-    console.log("Clicked Wishlist Button for Product:", productObjectId);
-    console.log("Current userId:", userId);
-
-    const isInWishlist = wishlist.includes(productObjectId);
-    try {
-      if (isInWishlist) {
-        console.log("Removing from wishlist:", productObjectId);
-        await axios.delete(`/wishlist/remove/${productObjectId}`, {
-          data: { userId },
-        });
-        setWishlist((prev) => prev.filter((id) => id !== productObjectId));
-      } else {
-        console.log("Adding to wishlist:", productObjectId);
-
-        // 🔍 Debug before sending
-        console.log("Sending request with:", {
-          user_id: String(userId),
-          product_id: productObjectId,
-        });
-
-        const response = await axios.post("/wishlist/add", {
-          user_id: String(userId), // Ensure it's a string
-          product_id: productObjectId,
-        });
-
-        console.log("Response from Server:", response.data);
-        setWishlist((prev) => [...prev, productObjectId]);
-      }
-    } catch (error) {
-      console.error(
-        "Error updating wishlist:",
-        error.response?.data || error.message
-      );
-    }
-  };
-  const handleAddToCart = (productId) => {
-    console.log("Adding to cart:", productId);
-    
-  };
-  const products = [
-    {
-      id: "67c90529df09578e6750fd18",
-      name: "Casual Wear",
-      desc: "Stylish & Comfortable",
-      img: "/images/image.png",
-    },
-    {
-      id: 2,
-      name: "Printed Shirt",
-      desc: "Stylish & Comfortable",
-      img: "/images/image1.png",
-    },
-    {
-      id: 3,
-      name: "Women Shirt",
-      desc: "Premium Quality",
-      img: "/images/image2.png",
-    },
-    {
-      id: 4,
-      name: "Formal Suit",
-      desc: "Elegant & Trendy",
-      img: "/images/image.png",
-    },
-    {
-      id: 5,
-      name: "Designer Dress",
-      desc: "Premium Quality",
-      img: "/images/image1.png",
-    },
-    {
-      id: 6,
-      name: "Designer Dress",
-      desc: "Premium Quality",
-      img: "/images/image2.png",
-    },
-  ];
-
   return (
     <>
       {isLoggedIn && role === "User" ? <Navbar /> : <PrimaryNavbar />}
+      <ToastContainer />
       <div className="homepage-container">
         <section className="hero-section">
           <Slider {...settings}>
             <div className="hero-content">
               <h1>70% Off on All Products</h1>
-              <p>Exclusive deals on top fashion and accessories.</p>
+              <p>
+                Experience the latest fashion, beauty, and lifestyle trends at
+                the best price.
+              </p>
               <button className="hero-btn">Shop Now</button>
             </div>
             <div className="hero-content">
               <h1>Limited Time Offer!</h1>
-              <p>Hurry, while stocks last.</p>
+              <p>
+                Get up to 50% off on all clothing, accessories, and jewelry.
+              </p>
               <button className="hero-btn">Shop Now</button>
             </div>
             <div className="hero-content">
               <h1>New Arrivals</h1>
-              <p>Check out the latest trends in fashion.</p>
+              <p>Discover the latest fashion trends and stylish accessories.</p>
               <button className="hero-btn">Shop Now</button>
             </div>
           </Slider>
@@ -145,78 +173,51 @@ const HomePage = () => {
         <section className="products-section">
           <h2>Top Selling Products</h2>
           <div className="products-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="product-image"
-                />
-
-                <FaHeart
-                //  className={`wishlist-icon ${wishlist.some(id => id === String(product.id)) ? "liked" : ""}`}
-                 className={`wishlist-icon ${wishlist.some(id => id === "67c90529df09578e6750fd18") ? "liked" : ""}`}
-                  onClick={() => toggleWishlist(product.id)}
-                />
-
-                <h3>{product.name}</h3>
-                <p>{product.desc}</p>
-                <button className="product-btn">Buy Now</button>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="products-section">
-          <h2>Top Selling Products</h2>
-          <div className="products-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="product-image"
-                />
-
-                <FaHeart
-                  className={`wishlist-icon ${
-                    wishlist.includes(product.id) ? "liked" : ""
-                  }`}
-                  onClick={() => toggleWishlist(product.id)}
-                />
-
-                <h3>{product.name}</h3>
-                <p>{product.desc}</p>
-                <div className="buy-cart-btn">
-                <button className="product-btn" onClick={(product) => handleAddToCart(product)}>Add To Cart</button>
-                <button className="product-btn">Buy Now</button>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <div key={product._id} className="product-card">
+                  <div className="product-image-container">
+                    <img
+                      src={product.product_image_urls}
+                      alt={product.product_name}
+                      className="product-image"
+                    />
+                  </div>
+                  <FaHeart
+                    className={`wishlist-icon ${
+                      wishlist.includes(product._id) ? "liked" : ""
+                    }`}
+                    onClick={() => toggleWishlist(product._id)}
+                  />
+                  <h3>{product.product_name}</h3>
+                  <p>
+                    {product.description} ({product.brand_name})
+                  </p>
+                  <div className="wishlist-price">
+                    <span className="wishlist-original-price ">
+                      ₹{product.base_price}
+                      <span className="wishlist-discount">
+                        ({product.offer_percentage}% OFF)
+                      </span>
+                    </span>
+                    <span className="wishlist-discounted-price">
+                      ₹{product.offer_price}
+                    </span>
+                  </div>
+                  <div className="buy-cart-btn">
+                    <button
+                      className="product-btn"
+                      onClick={() => handleAddToCart(product._id)}
+                    >
+                      Add To Cart
+                    </button>
+                    <button className="product-btn">Buy Now</button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="products-section">
-          <h2>Top Selling Products</h2>
-          <div className="products-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="product-image"
-                />
-
-                <FaHeart
-                  className={`wishlist-icon ${
-                    wishlist.includes(product.id) ? "liked" : ""
-                  }`}
-                  onClick={() => toggleWishlist(product.id)}
-                />
-
-                <h3>{product.name}</h3>
-                <p>{product.desc}</p>
-                <button className="product-btn">Buy Now</button>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>Loading products...</p>
+            )}
           </div>
         </section>
       </div>

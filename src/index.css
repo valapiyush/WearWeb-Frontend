@@ -28,8 +28,16 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  --bg-color: white;
+  --text-color: black;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: 0.3s;
 }
-
+body.dark-theme {
+  --bg-color: #121212;
+  --text-color: white;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

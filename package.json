@@ -30,17 +30,23 @@
 
     "@mui/icons-material": "^6.4.7",
 
-    "@mui/material": "^6.4.7",
+    "@mui/material": "^6.4.9",
 
-    "@mui/styled-engine-sc": "^6.4.6",
+    "@mui/styled-engine-sc": "^6.4.9",
+
+    "@mui/x-data-grid": "^7.28.1",
 
     "axios": "^1.7.9",
+
+    "chart.js": "^4.4.8",
 
     "framer": "^2.4.1",
 
     "framer-motion": "^12.4.3",
 
     "react": "^19.0.0",
+
+    "react-chartjs-2": "^5.3.0",
 
     "react-dom": "^19.0.0",
 
@@ -56,7 +62,7 @@
 
     "slick-carousel": "^1.8.1",
 
-    "styled-components": "^6.1.15"
+    "styled-components": "^6.1.16"
 
   },
 
