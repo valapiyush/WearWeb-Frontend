@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 
 const RoleContext = createContext();
 
-// RoleProvider component
 export const RoleProvider = ({ children }) => {
-  const [role, setRole] = useState(() => localStorage.getItem("role") || ""); // ✅ Initial state
-
-  useEffect(() => {
-    const storedRole = localStorage.getItem("role");
-    if (storedRole) {
-      setRole(storedRole);
-    }
-  }, []);
+  const [role, setRole] = useState(() => {
+    return localStorage.getItem("role") || null; // <-- hydrate immediately
+  });
 
   return (
     <RoleContext.Provider value={{ role, setRole }}>
@@ -20,7 +14,6 @@ export const RoleProvider = ({ children }) => {
     </RoleContext.Provider>
   );
 };
-
 // Custom hook to use RoleContext
 export const useRole = () => {
   const context = useContext(RoleContext);

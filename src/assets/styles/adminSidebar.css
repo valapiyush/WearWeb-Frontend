@@ -1,0 +1,17 @@
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #465a6e;
+    color: white;
+    transition: width 0.3s;
+    overflow: hidden;
+  }
+  
+  .admin-sidebar.coll
+  ::contentReference[oaicite:0]{index=0}
+   
+  .admin-sidebar.expanded {
+    width: 250px;
+  }  

@@ -32,6 +32,14 @@ import KidsWear from "./components/user/KidsWear";
 import WishList from "./components/user/WishList";
 import { ResetPasswordPage } from "./components/common/ResetPasswordPage";
 import ThemeToggle from "./components/common/ThemeToggle";
+import { Order } from "./components/user/Order";
+import Invoice from "./components/user/Invoice";
+import MyOrders from "./components/user/MyOrders";
+import Checkout from "./components/user/Checkout";
+import OrderConfirmation from "./components/user/OrderConfirmation";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminUserList from "./components/admin/AdminUserList";
+import AdminSellerList from "./components/admin/AdminSellerList";
 
 function App() {
   const location = useLocation();
@@ -44,6 +52,8 @@ function App() {
   }, [location.pathname]);
 
   useEffect(() => {
+    if (!role) return;
+    if (role === null) return null;
     if (role === "Seller") {
       setCurrentNavbar(<SellerNavbar />);
     } else if (role === "Admin") {
@@ -57,7 +67,6 @@ function App() {
 
   return (
     <>
-    
       {!["/loginsignup", "/forgotpassword", "/resetpassword"].some((path) =>
         location.pathname.includes(path)
       ) && currentNavbar}
@@ -73,11 +82,17 @@ function App() {
           {/*  Protected User Routes */}
           <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
             <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<MyOrders />} />
+            <Route path="/orders/:orderId" element={<Order />} />
+            <Route path="/orders/:orderId/invoice" element={<Invoice />} />
+            <Route path="/invoice/:orderId" element={<Invoice />} />
+            <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/womenswear" element={<WomensWear />} />
             <Route path="/kidswear" element={<KidsWear />} />
             <Route path="/menswear" element={<MensWear />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Route>
 
           {/*  Protected Seller Routes */}
@@ -90,9 +105,11 @@ function App() {
 
           {/*  Protected Admin Routes */}
           <Route element={<PrivateRoutes allowedRoles={["Admin"]} />}>
-            <Route path="/admin/dashboard" element={<DashboardLayout />} />
-            {/* Add admin-only routes here */}
-          </Route>
+            {/* <Route path="/admin/dashboard" element={<DashboardLayout />} /> */}
+            <Route path="/admin/dashboard" element={<AdminLayout />} />
+            <Route path="/admin/users" element={<AdminUserList />} />
+            <Route path="/admin/sellers" element={<AdminSellerList />} />
+            </Route>
         </Routes>
       </div>
     </>

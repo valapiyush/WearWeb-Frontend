@@ -41,7 +41,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-left">
           <FaBars className="menu-icon" onClick={toggleSidebar} />
-          <span className="brand-name">Wear Web</span>
+          <span className="brand-name"><Link style={{color:"white"}} to="/seller/dashboard">Wear Web</Link></span>
         </div>
         <div className="navbar-right">
           <div

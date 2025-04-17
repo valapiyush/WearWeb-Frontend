@@ -1,0 +1,126 @@
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+    /* background-color: #f7f9fc; */
+    gap: 40px;
+  }
+  
+  .billing-details,
+  .order-summary {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 320px;
+    max-width: 48%;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #2f536c;
+  }
+  
+  .address-display p {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #444;
+  }
+  
+  .add-address-btn,
+  .submit-btn,
+  .place-order-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #4b748b;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .add-address-btn:hover,
+  .submit-btn:hover,
+  .place-order-btn:hover {
+    background-color: #2f536c;
+  }
+  
+  .address-form {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  
+  .address-form input {
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    transition: border 0.3s ease;
+  }
+  
+  .address-form input:focus {
+    border-color: #4b748b;
+  }
+  .cancel-btn {
+    margin-left: 10px;
+    padding: 8px 14px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #b3b3b3;
+  }
+  
+  
+  .summary-box {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #2f536c;
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-container {
+      flex-direction: column;
+      padding: 20px;
+    }
+  
+    .billing-details,
+    .order-summary {
+      max-width: 100%;
+    }
+  
+    .address-form {
+      grid-template-columns: 1fr;
+    }
+  }
+  

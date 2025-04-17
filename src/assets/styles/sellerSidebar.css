@@ -51,7 +51,7 @@
   
   /* Active Menu Item */
   .menu-item.active {
-    background: #769cb2;
+    /* background: #769cb2; */
     font-weight: 600;
     border-radius: 0 8px 8px 0;
   }

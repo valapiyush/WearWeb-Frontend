@@ -1,0 +1,42 @@
+/* General Style for Order Status */
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+    text-transform: capitalize; /* Capitalize first letter of each word */
+  }
+  
+  /* Color for Pending Status */
+  .status.pending {
+    color: rgb(255, 166, 0);
+  }
+  
+  /* Color for Cancelled Status */
+  .status.cancelled {
+    color: rgb(255, 0, 0);
+  }
+  
+  /* Color for Delivered Status */
+  .status.delivered {
+    color: rgb(0, 255, 0);
+  }
+  
+  /* Color for Processing Status */
+  .status.processing {
+    background-color: blue;
+    color: white;
+  }
+  
+  /* Color for Shipped Status */
+  .status.shipped {
+    background-color: lightblue;
+    color: white;
+  }
+  
+  /* Color for On Hold Status */
+  .status.onhold {
+    background-color: yellow;
+    color: black;
+  }
+  

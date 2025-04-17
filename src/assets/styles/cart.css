@@ -122,7 +122,7 @@
   /* Cart Summary Section */
   .cart-summary {
     width: 500px; 
-    height: 30rem; /* Fixed height */
+    height: 480px; /* Fixed height */
     background: #f0f0f0;
     /* border: 1px solid #000; */
     border-radius: 3px;
@@ -162,6 +162,43 @@
     padding-top: 15px;
     font-size: 30px;
     font-weight: 500;
+  }
+  .coupon-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .coupon-box input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 180px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .coupon-box input:focus {
+    outline: none;
+    border-color: #4b748b;
+  }
+  
+  .apply-btn {
+    padding: 10px 16px;
+    background-color: #4b748b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .apply-btn:hover {
+    background-color: #2f536c;
   }
   
   /* Checkout Button */

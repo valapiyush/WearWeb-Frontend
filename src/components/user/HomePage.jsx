@@ -16,13 +16,13 @@ const HomePage = () => {
   const userId = localStorage.getItem("id");
 
   useEffect(() => {
-    // ✅ Fetch Products
+    //  Fetch Products
     axios
       .get("/products/products")
       .then((response) => setProducts(response.data.data))
       .catch((error) => console.error("Error fetching products:", error));
 
-    // ✅ Fetch Wishlist only if user is logged in
+    // Fetch Wishlist only if user is logged in
     if (userId) {
       axios
         .get(`/wishlist/user/${userId}`)
@@ -89,7 +89,7 @@ const HomePage = () => {
   };
 
   const handleAddToCart = (productId) => {
-    if (!userId) {
+    if (role != "User") {
       toast.success("Please log in to add items to cart.", {
         position: "top-right",
         autoClose: 1000, // Auto close in 3 sec
@@ -110,7 +110,7 @@ const HomePage = () => {
       })
       .then(() =>
         toast.success("🛒 Item added to cart!", {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000, // Auto close in 3 sec
           hideProgressBar: false,
           closeOnClick: true,
@@ -190,11 +190,13 @@ const HomePage = () => {
                     onClick={() => toggleWishlist(product._id)}
                   />
                   <h3>{product.product_name}</h3>
-                  <p>
-                    {product.description} ({product.brand_name})
-                  </p>
+                  <p>{product.description}</p>
+                  <p className="wishlist-brand">Brand: {product.brand_name}</p>
                   <div className="wishlist-price">
-                    <span className="wishlist-original-price ">
+                    <span
+                      className="wishlist-original-price"
+                      data-price={product.base_price}
+                    >
                       ₹{product.base_price}
                       <span className="wishlist-discount">
                         ({product.offer_percentage}% OFF)
@@ -204,6 +206,7 @@ const HomePage = () => {
                       ₹{product.offer_price}
                     </span>
                   </div>
+
                   <div className="buy-cart-btn">
                     <button
                       className="product-btn"

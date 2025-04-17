@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import axios from "axios"; // Make sure to install axios
 import "./SaleGraphComponent.css";
 
 // Register chart.js components
@@ -8,30 +9,44 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const SaleGraphComponent = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("monthly");
+  const [salesData, setSalesData] = useState({
+    labels: [],
+    data: []
+  });
 
-  // Sample sales data for different periods
-  const salesData = {
-    weekly: {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      data: [100, 200, 150, 300, 250, 400, 350]
-    },
-    monthly: {
-      labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-      data: [1000, 1500, 1200, 1800]
-    },
-    yearly: {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      data: [5000, 7000, 6500, 8000, 7500, 9000, 8500, 10000, 9500, 11000, 10500, 12000]
+  // Fetch sales data from the backend
+  const fetchSalesData = async (period) => {
+    try {
+      const response = await axios.get(`/orders/sales-data`, {
+        params: { period }
+      });
+      if (response.data.success) {
+        const sales = response.data.data;
+        const labels = sales.map(item => item.label);
+        const data = sales.map(item => item.sales);
+
+        setSalesData({
+          labels,
+          data
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching sales data:", error);
     }
   };
 
+  // Fetch data when the component mounts or the selectedPeriod changes
+  useEffect(() => {
+    fetchSalesData(selectedPeriod);
+  }, [selectedPeriod]);
+
   // Chart data
   const chartData = {
-    labels: salesData[selectedPeriod].labels,
+    labels: salesData.labels,
     datasets: [
       {
         label: "Sales (₹)",
-        data: salesData[selectedPeriod].data,
+        data: salesData.data,
         borderColor: "#fff",
         backgroundColor: "rgba(76, 175, 80, 0.2)",
         pointBackgroundColor: "#4CAF50",

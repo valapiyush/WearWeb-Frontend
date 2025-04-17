@@ -1,61 +1,81 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
+import './RecentOrders.css';
 
 const columns = [
-    { 
-      field: "id", 
-      headerName: "Order ID", 
-      width: 150 
-    },
-    { 
-      field: "product", 
-      headerName: "Product", 
-      width: 200 
-    },
-    { 
-      field: "date", 
-      headerName: "Date", 
-      width: 150 
-    },
-    { 
-      field: "customer", 
-      headerName: "Customer Name", 
-      width: 200 
-    },
-    { 
-      field: "status", 
-      headerName: "Status", 
-      width: 150,
-      renderCell: (params) => (
-        <span 
-          style={{ 
-            color: params.value === "Completed" ? "green" : "red",
-            fontWeight: "bold"
-          }}
-        >
+  { 
+    field: "id", 
+    headerName: "Order ID", 
+    width: 150 
+  },
+  { 
+    field: "payment_method", 
+    headerName: "Payment Method", 
+    width: 200,
+    align: 'center'
+  },
+  { 
+    field: "date", 
+    headerName: "Date", 
+    width: 150 
+  },
+  { 
+    field: "customer", 
+    headerName: "Customer Name", 
+    width: 200 
+  },
+  { 
+    field: "status", 
+    headerName: "Status", 
+    width: 150,
+    renderCell: (params) => {
+      const status = params.value.toLowerCase();
+      return (
+        <span className={`status ${status}`}>
           {params.value}
         </span>
-      ),
+      );
     },
-    { 
-      field: "amount", 
-      headerName: "Amount", 
-      width: 150,
-      renderCell: (params) => `₹${params.value}` // Format currency
-    }
-  ];
-  
-  const rows = [
-    { id: "ORD12345", product: "T-Shirt", date: "2025-03-25", customer: "John Doe", status: "Completed", amount: 1999 },
-    { id: "ORD12346", product: "Jeans", date: "2025-03-24", customer: "Jane Smith", status: "Pending", amount: 2499 },
-    { id: "ORD12347", product: "Sneakers", date: "2025-03-23", customer: "Michael Lee", status: "Completed", amount: 3999 },
-    { id: "ORD12348", product: "Watch", date: "2025-03-22", customer: "Emily Davis", status: "Cancelled", amount: 5999 },
-    { id: "ORD12349", product: "Backpack", date: "2025-03-21", customer: "Chris Brown", status: "Pending", amount: 1499 }
-  ];
-  
+  },
+  { 
+    field: "amount", 
+    headerName: "Amount", 
+    width: 150,
+    renderCell: (params) => `₹${params.value}`
+  }
+];
 
 export default function DataGridDemo() {
+  const [rows, setRows] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get('/orders');
+
+        const transformedRows = response.data.data.map((order) => {
+          return {
+            id: order._id,
+            payment_method: order.payment_method,
+            date: new Date(order.createdAt).toLocaleDateString(),
+            customer: order.user_id.username,
+            status: order.status,
+            amount: order.total_amount,
+          };
+        });
+
+        setRows(transformedRows);
+      } catch (err) {
+        console.error("Error fetching orders:", err);
+        setRows([]);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -72,38 +92,38 @@ export default function DataGridDemo() {
         checkboxSelection
         disableRowSelectionOnClick
         sx={{
-            "& .MuiDataGrid-cell": {
-              color: "white", // White text for row cells
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#171821", // Dark background for header
-              color: "white", // White text for headers
-            },
-            "& .MuiDataGrid-columnHeader .MuiCheckbox-root": {
-                color: "black !important", // Black checkbox in the header
-              },
-            "& .MuiCheckbox-root": {
-              color: "white !important", // White checkbox color
-            },
-            "& .MuiDataGrid-iconSeparator": {
-              display: "none", // Hides the separator between column headers
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#2a2d3e", // Darker row highlight on hover
-            },
-            "& .MuiTablePagination-root": {
-              color: "white", // White pagination text
-            },
-            "& .MuiDataGrid-columnHeaderTitleContainer": {
-                color: "black", // White header text
-            },
-            "& .MuiDataGrid-columnHeaderTitleContainerContent": {
-                color: "black", // White header text
-            },
-            "& .MuiDataGrid-selectedRowCount": {
-                color: "white", // White selected row count text
-            },
-          }}
+          "& .MuiDataGrid-cell": {
+            color: "white",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: "#171821",
+            color: "white",
+          },
+          "& .MuiDataGrid-columnHeader .MuiCheckbox-root": {
+            color: "black !important",
+          },
+          "& .MuiCheckbox-root": {
+            color: "white !important",
+          },
+          "& .MuiDataGrid-iconSeparator": {
+            display: "none",
+          },
+          "& .MuiDataGrid-row:hover": {
+            backgroundColor: "#2a2d3e",
+          },
+          "& .MuiTablePagination-root": {
+            color: "white",
+          },
+          "& .MuiDataGrid-columnHeaderTitleContainer": {
+            color: "black",
+          },
+          "& .MuiDataGrid-columnHeaderTitleContainerContent": {
+            color: "black",
+          },
+          "& .MuiDataGrid-selectedRowCount": {
+            color: "white",
+          },
+        }}
       />
     </Box>
   );
