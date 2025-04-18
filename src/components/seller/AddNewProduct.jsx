@@ -5,6 +5,7 @@ import { useState } from "react";
 import "../../assets/styles/addnewproduct.css";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
 
 export const AddNewProduct = () => {
   const [categories, setCategories] = useState([]);
@@ -43,7 +44,6 @@ export const AddNewProduct = () => {
   const getAllCategories = async () => {
     try {
       const res = await axios.get("/category/get");
-      console.log(res.data.data);
       setCategories(res.data.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -94,6 +94,7 @@ export const AddNewProduct = () => {
       console.log(formData);
       const res = await axios.post("/products/addproduct", formData);
       console.log("Product added successfully:", res.data);
+      toast.success("Product added successfully", { autoClose: 1000 });
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -101,6 +102,8 @@ export const AddNewProduct = () => {
   
   return (
     <div className="product-details-form">
+            <ToastContainer />
+
       <h2>Add New Product</h2>
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="form-group">

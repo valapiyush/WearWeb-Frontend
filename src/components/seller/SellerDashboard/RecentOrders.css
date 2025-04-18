@@ -24,19 +24,16 @@
   
   /* Color for Processing Status */
   .status.processing {
-    background-color: blue;
-    color: white;
+    color: blue;
   }
   
   /* Color for Shipped Status */
   .status.shipped {
-    background-color: lightblue;
-    color: white;
+    color: lightblue;
   }
   
   /* Color for On Hold Status */
   .status.onhold {
-    background-color: yellow;
-    color: black;
+    color: yellow;
   }
   

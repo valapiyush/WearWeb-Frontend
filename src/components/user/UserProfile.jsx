@@ -11,7 +11,8 @@ const UserProfile = ({ setViewMode,setEditUserData  }) => {
         const userId = localStorage.getItem("id");
         if (!userId) return;
 
-        const response = await axios.get(`/user-details/user-details/${userId}`);
+        const response = await axios.get(`/user-details/${userId}`);
+        console.log(response.data.data);
         setUser(response.data.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -63,6 +64,18 @@ const UserProfile = ({ setViewMode,setEditUserData  }) => {
         <div className="profile-field full-width">
           <p className="field-label">Address:</p>
           <p className="field-value">{user.unit_name}, {user.street}, {user.pincode}</p>
+        </div>
+        <div className="profile-field full-width">
+          <p className="field-label">City</p>
+          <p className="field-value">{user.city_id.name}</p>
+        </div>
+        <div className="profile-field full-width">
+          <p className="field-label">State</p>
+          <p className="field-value">{user.state_id.name}</p>
+        </div>
+        <div className="profile-field full-width">
+          <p className="field-label">Country</p>
+          <p className="field-value">{user.country_id.name}</p>
         </div>
       </div>
 

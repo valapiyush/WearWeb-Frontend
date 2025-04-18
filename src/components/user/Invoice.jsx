@@ -94,7 +94,7 @@ const Invoice = () => {
   return (
     <div className="invoice-container">
       <div className="invoice-header">
-        <h2>Invoice</h2>
+        <h2>Wear Web - Invoice</h2>
         <div className="invoice-meta">
           <div>Order ID: {order._id}</div>
           <div>Date: {new Date(order.createdAt).toLocaleDateString()}</div>
@@ -126,7 +126,7 @@ const Invoice = () => {
       <div className="invoice-summary">
         <span>Subtotal: ₹{order.products.reduce((acc, item) => acc + item.price * item.quantity, 0)}</span>
         <span>Shipping: ₹{order.shipping_fee || 50}</span>
-        <span className="invoice-total">Total: ₹{order.total}</span>
+        <span className="invoice-total">Total: ₹{order.total_amount}</span>
       </div>
 
       <button className="download-btn" onClick={downloadPDF}>

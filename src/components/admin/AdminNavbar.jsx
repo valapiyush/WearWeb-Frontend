@@ -3,12 +3,13 @@ import "../../assets/styles/adminNavbar.css";
 import { FaSearch, FaBell, FaUser, FaBars, FaTimes, FaSignOutAlt, FaAngleRight } from "react-icons/fa";
 import AdminSidebar from "./AdminSidebar";
 import { Link } from "react-router-dom";
-
+import { useRole } from "../context/RoleContext";
 const AdminNavbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [popupOpen, setPopupOpen] = useState(null);
   const popupRef = useRef(null);
+  const { setRole } = useRole();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -21,6 +22,7 @@ const AdminNavbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("role");
+    setRole(null);
     window.location.href = "/";
   };
 
@@ -84,7 +86,7 @@ const AdminNavbar = () => {
               <span className="notification-close-button" onClick={() => togglePopup(null)}><FaTimes /></span>
 
               <Link to="/forgotpassword">Change Password <FaAngleRight /></Link>
-              <a href="#" onClick={handleLogout}>Logout <FaSignOutAlt /></a>
+              <a href="/" onClick={handleLogout}>Logout <FaSignOutAlt /></a>
             </div>
           )}
         </div>

@@ -1,109 +1,85 @@
-import { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
-import axios from "axios"; // Make sure to install axios
-import "./SaleGraphComponent.css";
-
-// Register chart.js components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+// SalesGraph.jsx
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Box, Typography, CircularProgress } from '@mui/material';
+import "./SaleGraphComponent.css"
 
 const SaleGraphComponent = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState("monthly");
-  const [salesData, setSalesData] = useState({
-    labels: [],
-    data: []
-  });
+  const [salesData, setSalesData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch sales data from the backend
-  const fetchSalesData = async (period) => {
-    try {
-      const response = await axios.get(`/orders/sales-data`, {
-        params: { period }
-      });
-      if (response.data.success) {
-        const sales = response.data.data;
-        const labels = sales.map(item => item.label);
-        const data = sales.map(item => item.sales);
+  const sellerId = localStorage.getItem('id');
 
-        setSalesData({
-          labels,
-          data
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching sales data:", error);
-    }
-  };
-
-  // Fetch data when the component mounts or the selectedPeriod changes
   useEffect(() => {
-    fetchSalesData(selectedPeriod);
-  }, [selectedPeriod]);
+    const fetchSalesData = async () => {
+      try {
+        const response = await axios.get('/orders');
+        const orders = response.data.data;
 
-  // Chart data
-  const chartData = {
-    labels: salesData.labels,
-    datasets: [
-      {
-        label: "Sales (₹)",
-        data: salesData.data,
-        borderColor: "#fff",
-        backgroundColor: "rgba(76, 175, 80, 0.2)",
-        pointBackgroundColor: "#4CAF50",
-        borderWidth: 2,
-        tension: 0.4
-      }
-    ]
-  };
+        // Extract sales related to the current seller
+        const sellerSales = [];
 
-  // Chart options
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false
-      },
-      tooltip: {
-        enabled: true
+        orders.forEach(order => {
+          const date = new Date(order.createdAt).toLocaleDateString();
+
+          order.products.forEach(product => {
+            const userId = product.product_id?.user_id?._id || product.product_id?.user_id;
+
+            if (userId === sellerId) {
+              const totalSale = product.quantity * product.product_id?.offer_price || 0;
+
+              // Push sale data with date
+              sellerSales.push({
+                date,
+                total: totalSale
+              });
+            }
+          });
+        });
+
+        // Group sales by date
+        const groupedSales = sellerSales.reduce((acc, curr) => {
+          const found = acc.find(item => item.date === curr.date);
+          if (found) {
+            found.total += curr.total;
+          } else {
+            acc.push({ date: curr.date, total: curr.total });
+          }
+          return acc;
+        }, []);
+
+        setSalesData(groupedSales);
+      } catch (error) {
+        console.error("Error fetching sales data:", error);
+      } finally {
+        setLoading(false);
       }
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false
-        }
-      },
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: "rgba(255, 255, 255, 0.25)"
-        }
-      }
-    }
-  };
+    };
+
+    fetchSalesData();
+  }, [sellerId]);
 
   return (
-    <div className="sale-graph">
-      <div className="sale-graph-header">
-        <h2 className="sale-graph-title">Sale Graph</h2>
-        <div className="period-buttons">
-          {["weekly", "monthly", "yearly"].map((period) => (
-            <button 
-              key={period} 
-              className={`period-button ${selectedPeriod === period ? "active" : ""}`}
-              onClick={() => setSelectedPeriod(period)}
-            >
-              {period.charAt(0).toUpperCase() + period.slice(1)}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="divider"></div>
-      <div className="graph-container">
-        <Line data={chartData} options={chartOptions} />
-      </div>
-    </div>
+    <Box sx={{ padding: 3, backgroundColor: '#1f2029', borderRadius: 2, mt: 4 }}>
+      <Typography variant="h5" sx={{ color: 'white', mb: 2 }}>
+        📈 Sales Graph (by Date)
+      </Typography>
+
+      {loading ? (
+        <CircularProgress color="primary" />
+      ) : (
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={salesData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+            <Line type="monotone" dataKey="total" stroke="#4fc3f7" strokeWidth={3} />
+            <CartesianGrid stroke="#555" strokeDasharray="5 5" />
+            <XAxis dataKey="date" stroke="#aaa" />
+            <YAxis stroke="#aaa" />
+            <Tooltip />
+          </LineChart>
+        </ResponsiveContainer>
+      )}
+    </Box>
   );
 };
 

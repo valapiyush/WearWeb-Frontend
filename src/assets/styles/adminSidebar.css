@@ -1,17 +1,31 @@
 .admin-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #465a6e;
-    color: white;
-    transition: width 0.3s;
-    overflow: hidden;
-  }
-  
-  .admin-sidebar.coll
-  ::contentReference[oaicite:0]{index=0}
-   
-  .admin-sidebar.expanded {
-    width: 250px;
-  }  
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #465a6e;
+  color: white;
+  transition: width 0.5s;
+  overflow: hidden;
+}
+
+.admin-sidebar.expanded {
+  width: 250px;
+}
+
+.admin-sidebar.collapsed {
+  width: 60px;
+}
+
+.menu-label { /* Corrected the class name and removed z-index */
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease-in-out;
+  margin-left: 10px;
+  color: black; /* You can change the color as needed */
+}
+
+/* Show Menu Label when Expanded */
+.admin-sidebar.expanded .menu-label {
+  opacity: 1;
+}

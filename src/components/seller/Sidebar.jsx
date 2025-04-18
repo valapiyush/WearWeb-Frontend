@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/styles/sellerSidebar.css';
-import { FaClipboardList, FaBoxOpen, FaFileAlt, FaComments, FaTrophy, FaUser, FaHome, FaCog, FaHeart, FaHistory, FaSignOutAlt, FaBars } from "react-icons/fa";
+import { FaClipboardList, FaBoxOpen, FaFileAlt, FaHome, FaCog, FaSignOutAlt, FaBars } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 
@@ -23,6 +23,11 @@ const Sidebar = () => {
     if (!event.target.closest(".seller-sidebar")) {
       setIsExpanded(false);
     }
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("role");
+    window.location.href = "/";
   };
 
   // Add event listener when sidebar is open
@@ -48,21 +53,21 @@ const Sidebar = () => {
           <FaHome className="menu-icon" />
           {isExpanded && <Link to="/seller/dashboard" className="menu-label">Dashboard</Link>}
         </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaUser className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Profile</Link>}
-        </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        </div> */}
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaTrophy className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Leaderboard</Link>}
-        </div>
+        </div> */}
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaClipboardList className="menu-icon" />
           {isExpanded && <Link to="/seller/orders" className="menu-label">Orders</Link>}
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaBoxOpen className="menu-icon" />
-          {isExpanded && <Link to="/seller/addnewproduct" className="menu-label">Products</Link>}
+          {isExpanded && <Link to="/seller/addnewproduct" className="menu-label">Add Products</Link>}
         </div>
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaBoxOpen className="menu-icon" />
@@ -72,25 +77,25 @@ const Sidebar = () => {
           <FaFileAlt className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Sales Report</Link>}
         </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaComments className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Messages</Link>}
-        </div>
+        </div> */}
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaCog className="menu-icon" />
-          {isExpanded && <Link to="/leaderboard" className="menu-label">Settings</Link>}
+          {isExpanded && <Link to="/seller/settings" className="menu-label">Settings</Link>}
         </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaHeart className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Favourite</Link>}
-        </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        </div> */}
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaHistory className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">History</Link>}
-        </div>
+        </div> */}
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaSignOutAlt className="menu-icon" />
-          {isExpanded && <Link to="/leaderboard" className="menu-label">Sign Out</Link>}
+          {isExpanded &&  <Link to="/" className='menu-label' onClick={handleLogout}>Logout</Link>}
         </div>
       </div>
 

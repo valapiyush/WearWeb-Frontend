@@ -3,7 +3,7 @@ import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import "./AdminUserList.css";
 const AdminUserList = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -51,7 +51,7 @@ const AdminUserList = () => {
     { field: "id", headerName: "User ID", width: 220 },
     { field: "name", headerName: "Username", width: 150 },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "role", headerName: "Role", width: 120 },
+    // { field: "role", headerName: "Role", width: 120 },
     {
       field: "actions",
       headerName: "Actions",
@@ -81,16 +81,50 @@ const AdminUserList = () => {
   ];
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
-      <h2>All Users (Customers Only)</h2>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10, 20, 50]}
-        checkboxSelection
-      />
-    </div>
+    <div className="admin-user-container">
+    <h2>All Users (Customers Only)</h2>
+    <table className="user-table">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          {/* <th>Role</th> */}
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <tr key={user.id}>
+            <td>{user.id}</td>
+            <td>{user.name}</td>
+            <td>{user.email}</td>
+            {/* <td>{user.role}</td> */}
+            <td>
+              <div className="action-buttons">
+                {/* <Button
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  onClick={() => handleEdit(user.id)}
+                >
+                  Edit
+                </Button> */}
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 };
 

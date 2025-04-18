@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import "../../assets/styles/cart.css";
 import { FaFileInvoice, FaCheckCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 export const Order = () => {
   const { width, height } = useWindowSize(); // for confetti size
@@ -13,11 +12,12 @@ export const Order = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`/orders/${orderId}`)
       .then((res) => {
-        console.log(res.data.data)
+        console.log(res.data.data);
         setOrder(res.data.data);
         setLoading(false);
       })
@@ -30,10 +30,8 @@ export const Order = () => {
   const downloadInvoice = () => {
     window.open(`/invoice/${orderId}`, "_blank");
   };
-  
 
   if (loading) return <p>Loading order details...</p>;
-
   if (!order) return <p>Order not found.</p>;
 
   const subtotal = order.products.reduce(
@@ -134,14 +132,16 @@ export const Order = () => {
             <span>TOTAL</span>
             <span>₹{total.toLocaleString("en-IN")}</span>
           </div>
+
           <button className="checkout-btn" onClick={downloadInvoice}>
             <FaFileInvoice /> &nbsp; Download Invoice
           </button>
+
           <button
             className="checkout-btn"
-            onClick={() => navigate(`/orders/${orderId}/invoice`,{ state: { order } })}
+            onClick={() => navigate(`/order-confirmation/${orderId}`)}
           >
-            <FaFileInvoice /> &nbsp; View Invoice PDF
+            <FaCheckCircle /> &nbsp; Order Status
           </button>
         </div>
       </div>

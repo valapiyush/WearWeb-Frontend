@@ -125,8 +125,8 @@ export const Cart = () => {
                     ₹{(product.product_id?.offer_price * product.quantity).toLocaleString("en-IN")}
                   </span>
                 </div>
-                <div className="delete-btn" onClick={() => handleDelete(product)}>
-                  <FaTrashAlt size={20} color="red" />
+                <div className="delete-btn" onClick={() => handleDelete(product)} >
+                  <FaTrashAlt size={20} color="white" />
                 </div>
               </div>
             ))}

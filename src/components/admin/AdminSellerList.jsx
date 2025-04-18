@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import "./AdminSellerList.css"; 
 
 const AdminSellerList = () => {
   const [sellers, setSellers] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllSellers = async () => {
@@ -18,6 +18,8 @@ const AdminSellerList = () => {
             id: user._id,
             name: user.username,
             email: user.email,
+            phone: user.phone || "N/A",
+            shop: user.shop_name || "N/A",
             role: user.role_id?.name || "N/A",
           }));
         setSellers(onlySellers);
@@ -29,15 +31,13 @@ const AdminSellerList = () => {
     fetchAllSellers();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log("Edit seller with ID:", id);
-    // Example: navigate to seller edit page
-    navigate(`/admin/sellers/edit/${id}`);
-  };
+  // const handleEdit = (id) => {
+  //   navigate(`/admin/sellers/edit/${id}`);
+  // };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this seller?");
-    if (!confirm) return;
+    const confirmDelete = window.confirm("Are you sure you want to delete this seller?");
+    if (!confirmDelete) return;
 
     try {
       await axios.delete(`/users/${id}`);
@@ -49,64 +49,40 @@ const AdminSellerList = () => {
     }
   };
 
-  const columns = [
-    { field: "id", headerName: "Seller ID", width: 220 },
-    { field: "name", headerName: "Seller Name", width: 150 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "role", headerName: "Role", width: 120 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 200,
-      renderCell: (params) => (
-        <>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="small"
-            style={{ marginRight: 8 }}
-            onClick={() => handleEdit(params.row.id)}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            size="small"
-            onClick={() => handleDelete(params.row.id)}
-          >
-            Delete
-          </Button>
-        </>
-      ),
-    },
-    {
-      field: "view",
-      headerName: "View",
-      width: 120,
-      renderCell: (params) => (
-        <Button
-          variant="outlined"
-          color="primary"
-          size="small"
-          onClick={() => navigate(`/admin/sellers/${params.row.id}`)}
-        >
-          View
-        </Button>
-      ),
-    }
-  ];
-
   return (
-    <div style={{ height: 600, width: "100%" }}>
+    <div className="admin-seller-container">
       <h2>All Sellers</h2>
-      <DataGrid
-        rows={sellers}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10, 20, 50]}
-        checkboxSelection
-      />
+      <table className="seller-table">
+        <thead>
+          <tr>
+            <th>Seller ID</th>
+            <th>Seller Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sellers.map((seller) => (
+            <tr key={seller.id}>
+              <td>{seller.id}</td>
+              <td>{seller.name}</td>
+              <td>{seller.email}</td>
+              <td>
+                <div className="action-buttons">
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    onClick={() => handleDelete(seller.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

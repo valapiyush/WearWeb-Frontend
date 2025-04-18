@@ -1,0 +1,33 @@
+.sales-report-container {
+    padding: 3rem;
+    /* background-color: #f9f9f9; */
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .sales-report-container h2,
+  .sales-report-container h3 {
+    color: #2f536c;
+  }
+  
+  .sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  
+  .sales-table th,
+  .sales-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+  
+  .sales-table th {
+    background-color: #4b748b;
+    color: #fff;
+  }
+  

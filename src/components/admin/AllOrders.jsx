@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import './RecentOrders.css';
+// import './RecentOrders.css';
 
 const columns = [
   { 
@@ -53,12 +53,11 @@ export default function DataGridDemo() {
   React.useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const sellerId = localStorage.getItem('id'); // Logged-in seller's ID
         const response = await axios.get('/orders');
         const allOrders = response.data.data;
         const filteredRows = allOrders.flatMap((order) => {
           return order.products
-            .filter((product) => product.product_id?.user_id === sellerId)
+           
             .map((product, index) => ({
               id: order._id + '-' + index, // Ensure uniqueness if multiple products in same order
               payment_method: order.payment_method,

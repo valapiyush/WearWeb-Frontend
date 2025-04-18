@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import '../../assets/styles/primaryNavbar.css';
 import { FaSearch, FaBars, FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const PrimaryNavbar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     e.preventDefault();
-    alert(`You searched for: ${searchQuery}`);
+    if (searchText.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchText)}`);
+    }
+    
   };
 
   const toggleSidebar = () => {
@@ -29,8 +32,8 @@ export const PrimaryNavbar = () => {
           <input
             type="text"
             placeholder="Search items..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <button type="submit">
             <FaSearch />

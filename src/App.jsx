@@ -40,6 +40,14 @@ import OrderConfirmation from "./components/user/OrderConfirmation";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminUserList from "./components/admin/AdminUserList";
 import AdminSellerList from "./components/admin/AdminSellerList";
+import ProductList from "./components/common/ProductList";
+import GiftCard from "./components/user/GiftCard";
+import ContactUs from "./components/common/ContactUs";
+import Settings from "./components/user/Settings";
+import SellerOrders from "./components/seller/SellerOrders";
+import ViewAllProducts from "./components/admin/ViewAllProducts";
+import SalesReport from "./components/admin/SalesReport";
+import { EditProduct } from "./components/seller/EditProduct";
 
 function App() {
   const location = useLocation();
@@ -52,15 +60,14 @@ function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (!role) return;
-    if (role === null) return null;
-    if (role === "Seller") {
+    if (!role) {
+      setCurrentNavbar(<Navbar/>);
+    }
+    else if (role === "Seller") {
       setCurrentNavbar(<SellerNavbar />);
     } else if (role === "Admin") {
       setCurrentNavbar(<AdminNavbar />);
-    } else {
-      setCurrentNavbar(<Navbar />);
-    }
+    } 
   }, [role]);
 
   axios.defaults.baseURL = "http://localhost:3000";
@@ -79,6 +86,8 @@ function App() {
           <Route path="/resetpassword/:token" element={<ResetPasswordPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/theme" element={<ThemeToggle />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+            <Route path="/products" element={<ProductList />} />
           {/*  Protected User Routes */}
           <Route element={<PrivateRoutes allowedRoles={["User"]} />}>
             <Route path="/cart" element={<Cart />} />
@@ -93,6 +102,9 @@ function App() {
             <Route path="/kidswear" element={<KidsWear />} />
             <Route path="/menswear" element={<MensWear />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/giftcard" element={<GiftCard />} />
+            <Route path="/settings" element={<Settings />} />
+
           </Route>
 
           {/*  Protected Seller Routes */}
@@ -100,7 +112,12 @@ function App() {
             <Route path="/seller/dashboard" element={<DashboardLayout />} />
             <Route path="/seller/addnewproduct" element={<AddNewProduct />} />
             <Route path="/seller/viewmyproducts" element={<ViewMyProducts />} />
-            <Route path="/seller/orders" element={<RecentOrders />} />
+            {/* <Route path="/seller/orders" element={<RecentOrders />} /> */}
+            <Route path="/seller/settings" element={<Settings />} />
+            <Route path="/seller/orders" element={<SellerOrders />} />
+            <Route path="/edit-product/:id" element={<EditProduct />} />
+
+
           </Route>
 
           {/*  Protected Admin Routes */}
@@ -109,6 +126,8 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminLayout />} />
             <Route path="/admin/users" element={<AdminUserList />} />
             <Route path="/admin/sellers" element={<AdminSellerList />} />
+            <Route path="/admin/products" element={<ViewAllProducts />} />
+            <Route path="/admin/reports" element={<SalesReport />} />
             </Route>
         </Routes>
       </div>

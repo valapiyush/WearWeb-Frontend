@@ -2,11 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import '../../assets/styles/navbar.css'; // Import the CSS file
 import { FaSearch, FaHeart, FaShoppingCart, FaUser, FaTimes, FaBars, FaCog, FaBox, FaSignOutAlt  } from 'react-icons/fa'; 
 import { MdCardGiftcard, MdContactSupport } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import ThemeToggle from '../common/ThemeToggle';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const profileSidebarRef = useRef(null); // Ref for the profile sidebar
   const profileToggleRef = useRef(null); // Ref for the profile toggle button
@@ -16,10 +14,13 @@ const Navbar = () => {
   const [isKidsHovered, setIsKidsHovered] = useState(false); // State for kids dropdown
   const [isHomeLivingHovered, setIsHomeLivingHovered] = useState(false); // State for home & living dropdown
   const [isBeautyHovered, setIsBeautyHovered] = useState(false); // State for beauty dropdown
-
+  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     e.preventDefault();
-    alert(`You searched for: ${searchQuery}`);
+    if (searchText.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchText)}`);
+    }
   };
 
   // Toggle mobile sidebar
@@ -260,8 +261,8 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search items..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <button type="submit">
             <FaSearch />
@@ -318,9 +319,9 @@ const Navbar = () => {
         <ul>
           <li><FaUser className='profile-icon' /> <Link to="/profile">Profile</Link></li>
           <li><FaBox className='profile-icon'/> <Link to="/orders">Orders</Link></li>
-          <li><FaCog className='profile-icon' /> <Link to="/theme">Settings</Link></li>
-          <li><MdCardGiftcard className='profile-icon' /> <Link to="#">GiftCards</Link></li>
-          <li><MdContactSupport className='profile-icon'/> <Link to="#">ContactUs</Link></li>
+          <li><FaCog className='profile-icon' /> <Link to="/settings">Settings</Link></li>
+          <li><MdCardGiftcard className='profile-icon' /> <Link to="/giftcard">GiftCards</Link></li>
+          <li><MdContactSupport className='profile-icon'/> <Link to="/contactUs">ContactUs</Link></li>
           <li><FaSignOutAlt className='profile-icon'/> 
           <a href="#" onClick={handleLogout}>Logout</a></li>
         </ul>

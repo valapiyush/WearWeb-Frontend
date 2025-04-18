@@ -157,10 +157,9 @@ export const SignupLoginForm = () => {
               required
               className="role-select"
             >
-              <option>Select Role</option>
+              <option value="67bd4674ef31516d015d5fe2">Select Role</option>
               <option value="67bd469cef31516d015d5fe6">User</option>
               <option value="67bd468bef31516d015d5fe4">Seller</option>
-              <option value="67bd4674ef31516d015d5fe2">Admin</option>
             </select>
             <i className="bx bxs-user-detail"></i>
           </div>

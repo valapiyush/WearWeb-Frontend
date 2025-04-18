@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./AdminDashboardLayout.css";
 import OrderCard from "../seller/SellerDashboard/OrderCard";
-import RecentOrders from "../seller/SellerDashboard/RecentOrders";
-import SaleGraphComponent from "../seller/SellerDashboard/SaleGraphComponent";
+import AllOrders from "./AllOrders";
+import SaleGraphComponent from "./SaleGraphComponent";
 import axios from "axios";
 import BestSellersComponent from "../seller/SellerDashboard/BestSellersComponent";
 
@@ -12,7 +12,8 @@ const AdminLayout = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("/admin/dashboard-stats");
+        const res = await axios.get("/orders/dashboard-stats");
+        // console.log(res.data.data)
         setStats(res.data.data);
       } catch (error) {
         console.error("Failed to load admin dashboard stats", error);
@@ -39,7 +40,7 @@ const AdminLayout = () => {
         />
         <OrderCard
           title="Total Sellers"
-          amount={stats?.totalSellers || 0}
+          amount={stats?.sellerCount || 0}
           percentage={stats?.totalSellers && stats?.previousTotalSellers ? 
             calculatePercentageChange(stats.totalSellers, stats.previousTotalSellers) : "↑ 0%"}
           comparison="Compared to last month"
@@ -52,8 +53,8 @@ const AdminLayout = () => {
           comparison="Compared to last month"
         />
         <OrderCard
-          title="Pending Verifications"
-          amount={stats?.pendingApprovals || 0}
+          title="Total Orders"
+          amount={stats?.totalOrders || 0}
           percentage={stats?.pendingApprovals && stats?.previousPendingApprovals ? 
             calculatePercentageChange(stats.pendingApprovals, stats.previousPendingApprovals) : "↓ 0%"}
           comparison="Compared to last week"
@@ -69,7 +70,7 @@ const AdminLayout = () => {
         </div>
       </div>
       <div className="recent-orders-section">
-              <RecentOrders />
+              <AllOrders />
             </div>
     </div>
   );

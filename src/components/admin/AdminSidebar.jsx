@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/styles/adminSidebar.css';
-import { FaUserShield, FaUsers, FaChartBar, FaProductHunt, FaCog, FaHistory, FaSignOutAlt, FaBars, FaHome } from "react-icons/fa";
+import { FaUserShield, FaUsers, FaChartBar, FaProductHunt, FaSignOutAlt, FaBars, FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const AdminSidebar = () => {
@@ -57,14 +57,14 @@ const AdminSidebar = () => {
           <FaChartBar className="menu-icon" />
           {isExpanded && <Link to="/admin/reports" className="menu-label">Reports</Link>}
         </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaCog className="menu-icon" />
           {isExpanded && <Link to="/admin/settings" className="menu-label">Settings</Link>}
-        </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        </div> */}
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaHistory className="menu-icon" />
           {isExpanded && <Link to="/admin/logs" className="menu-label">Activity Logs</Link>}
-        </div>
+        </div> */}
         <div className="menu-item" onClick={handleToggleSidebar}>
           <FaSignOutAlt className="menu-icon" />
           {isExpanded && <Link to="/" className="menu-label">Logout</Link>}

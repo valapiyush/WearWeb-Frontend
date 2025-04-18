@@ -9,11 +9,28 @@ const MyOrders = () => {
   const [loading, setLoading] = useState(true);
   const user_id = localStorage.getItem("id");
 
+  // Function to merge orders with the same order ID
+  const mergeOrders = (orders) => {
+    const orderMap = {};
+
+    orders.forEach(order => {
+      if (!orderMap[order._id]) {
+        orderMap[order._id] = { ...order, products: [] };
+      }
+      orderMap[order._id].products.push(...order.products);
+    });
+
+    return Object.values(orderMap);
+  };
+
+  // Fetch orders from the API and merge them
   useEffect(() => {
     axios
       .get(`/orders/users/${user_id}`)
       .then((res) => {
-        setOrders(res.data.data); // should be an array
+        const flatOrders = res.data.data;
+        const mergedOrders = mergeOrders(flatOrders);
+        setOrders(mergedOrders);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,34 +57,37 @@ const MyOrders = () => {
           <span>ORDER DETAILS</span>
         </div>
 
-        {orders.map((order, i) =>
-          order.products?.map((item, j) => (
-            <div className="cart-item" key={`${i}-${j}`}>
-              <div className="item-image-container">
-                <img
-                  src={item.product_id?.product_image_urls?.[0] || "/placeholder.jpg"}
-                  alt={item.product_id?.product_name}
-                  className="item-image"
-                />
+        {orders.map((order, i) => (
+          <div key={order._id}>
+            <h3>Order ID: {order._id}</h3>
+            {order.products.map((item, j) => (
+              <div className="cart-item" key={`${i}-${j}`}>
+                <div className="item-image-container">
+                  <img
+                    src={item.product_id?.product_image_urls?.[0] || "/placeholder.jpg"}
+                    alt={item.product_id?.product_name}
+                    className="item-image"
+                  />
+                </div>
+                <div className="item-details">
+                  <h3 className="item-title">{item.product_id?.product_name}</h3>
+                  <p className="item-subtitle">{item.product_id?.description}</p>
+                </div>
+                <div className="quantity-selector">
+                  <span className="quantity">{item.quantity}</span>
+                </div>
+                <div className="item-price">
+                  ₹{(item.price * item.quantity).toLocaleString("en-IN")}
+                </div>
+                <div className="item-price">
+                  <Link to={`/orders/${order._id}`} className="checkout-btn">
+                    <FaBoxOpen /> View Order
+                  </Link>
+                </div>
               </div>
-              <div className="item-details">
-                <h3 className="item-title">{item.product_id?.product_name}</h3>
-                <p className="item-subtitle">{item.product_id?.description}</p>
-              </div>
-              <div className="quantity-selector">
-                <span className="quantity">{item.quantity}</span>
-              </div>
-              <div className="item-price">
-                ₹{(item.price * item.quantity).toLocaleString("en-IN")}
-              </div>
-              <div className="item-price">
-                <Link to={`/orders/${order._id}`} className="checkout-btn">
-                  <FaBoxOpen /> View Order
-                </Link>
-              </div>
-            </div>
-          ))
-        )}
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const OrderConfirmation = () => {
   }
 
   return (
-    <div className="order-confirmation-container">
+    <div >
       <div className="confirmation-card">
         <h2>🎉 Thank You for Your Order!</h2>
         <p>Your order <strong>#{orderDetails._id}</strong> has been placed successfully.</p>
@@ -38,7 +38,7 @@ const OrderConfirmation = () => {
           {orderDetails.payment_id && (
             <p><strong>Payment ID:</strong> {orderDetails.payment_id}</p>
           )}
-          <p><strong>Total Amount:</strong> ₹{orderDetails.amount}</p>
+          <p><strong>Total Amount:</strong> ₹{orderDetails.total_amount}</p>
         </div>
 
         <button

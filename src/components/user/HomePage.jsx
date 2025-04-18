@@ -37,7 +37,10 @@ const HomePage = () => {
 
   const toggleWishlist = async (productId) => {
     if (!userId) {
-      alert("Please log in to manage your wishlist.");
+      toast.error("Please log in to manage your wishlist!", {
+        position: "top-center",
+        autoClose: 1000,
+      });
       return;
     }
 
