@@ -5,6 +5,7 @@ import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import "../../assets/styles/cart.css";
 import { FaFileInvoice, FaCheckCircle } from "react-icons/fa";
+import Navbar from "./Navbar";
 
 export const Order = () => {
   const { width, height } = useWindowSize(); // for confetti size
@@ -43,6 +44,7 @@ export const Order = () => {
 
   return (
     <div className="shopping-cart">
+      <Navbar/>
       {/* 🎉 Confetti Animation */}
       <Confetti
         width={width}

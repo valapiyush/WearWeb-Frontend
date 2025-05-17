@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "../../assets/styles/ContactUs.css";
+import Navbar from "../user/Navbar";
 
 const ContactUs = () => {
   const [form, setForm] = useState({ subject: "", message: "", email: "" });
@@ -26,6 +27,7 @@ const ContactUs = () => {
 
   return (
     <div className="contact-us-container">
+      <Navbar/>
       <h2>Contact Us</h2>
 
       <form className="contact-form" onSubmit={handleSubmit}>

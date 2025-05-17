@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../assets/styles/cart.css";
 import { FaBoxOpen } from "react-icons/fa";
+import Navbar from "./Navbar";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -46,6 +47,7 @@ const MyOrders = () => {
 
   return (
     <div className="shopping-cart">
+      <Navbar/>
       <h2 style={{ marginBottom: "1rem", textAlign: "center" }}>My Orders</h2>
 
       <div className="cart-items">

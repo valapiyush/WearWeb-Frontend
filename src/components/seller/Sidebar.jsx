@@ -73,10 +73,10 @@ const Sidebar = () => {
           <FaBoxOpen className="menu-icon" />
           {isExpanded && <Link to="/seller/viewmyproducts" className="menu-label">View Products</Link>}
         </div>
-        <div className="menu-item" onClick={handleToggleSidebar}>
+        {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaFileAlt className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Sales Report</Link>}
-        </div>
+        </div> */}
         {/* <div className="menu-item" onClick={handleToggleSidebar}>
           <FaComments className="menu-icon" />
           {isExpanded && <Link to="/leaderboard" className="menu-label">Messages</Link>}

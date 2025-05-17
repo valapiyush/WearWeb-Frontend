@@ -2,6 +2,7 @@
 import { useState } from "react";
 import DeleteAccount from "./DeleteAccount";
 import "../../assets/styles/Settings.css";
+import Navbar from "./Navbar";
 
 const Settings = () => {
   const [activeOption, setActiveOption] = useState("none");
@@ -13,6 +14,7 @@ const Settings = () => {
 
   return (
     <div className="settings-wrapper">
+      <Navbar/>
       <div className="settings-sidebar">
         <h2>Settings</h2>
         <ul className="settings-options">

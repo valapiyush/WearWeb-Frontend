@@ -67,7 +67,9 @@ function App() {
       setCurrentNavbar(<SellerNavbar />);
     } else if (role === "Admin") {
       setCurrentNavbar(<AdminNavbar />);
-    } 
+    } else{
+      setCurrentNavbar(<Navbar />);
+    }
   }, [role]);
 
   axios.defaults.baseURL = "http://localhost:3000";
@@ -116,6 +118,7 @@ function App() {
             <Route path="/seller/settings" element={<Settings />} />
             <Route path="/seller/orders" element={<SellerOrders />} />
             <Route path="/edit-product/:id" element={<EditProduct />} />
+            <Route path="/order-confirmation/:id" element={<OrderConfirmation />} />
 
 
           </Route>

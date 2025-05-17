@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Card, CardContent, Button, Snackbar } from '@mui/material';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 const GiftCard = () => {
   const [giftCards, setGiftCards] = useState([]);
@@ -50,6 +51,7 @@ const GiftCard = () => {
 
   return (
     <div style={{ padding: '20px' }}>
+      <Navbar/>
       <Typography variant="h4" gutterBottom>
         Your Gift Cards
       </Typography>

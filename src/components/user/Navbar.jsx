@@ -277,7 +277,7 @@ const Navbar = () => {
         <Link to="/cart">
           <FaShoppingCart />
         </Link>
-        <Link to="/loginsignup" className='fa-user-logo'>
+        <Link to="/profile" className='fa-user-logo'>
           <FaUser />
         </Link>
         {/* <ThemeToggle /> */}
@@ -294,36 +294,37 @@ const Navbar = () => {
       <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <ul>
           <li onClick={handleLinkClick}>
-            <Link to="/homepage">Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link to="#men">Men</Link>
+            <Link to="/menswear">Men</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link to="#women">Women</Link>
+            <Link to="/womenswear">Women</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link to="#kids">Kids</Link>
+            <Link to="/kidswear">Kids</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link to="#home-living">Home & Living</Link>
+            <Link to="/home-living">Home & Living</Link>
           </li>
           <li onClick={handleLinkClick}>
-            <Link to="#beauty">Beauty</Link>
+            <Link to="/beauty">Beauty</Link>
           </li>
+          <li><a href="#" onClick={handleLogout}><FaSignOutAlt className='profile-icon'/> Logout</a></li>
+
         </ul>
       </div>
 
       {/* Profile Sidebar (for big screens) */}
       <div ref={profileSidebarRef} className={`profile-sidebar ${profileSidebarOpen ? 'open' : ''}`}>
         <ul>
-          <li><FaUser className='profile-icon' /> <Link to="/profile">Profile</Link></li>
-          <li><FaBox className='profile-icon'/> <Link to="/orders">Orders</Link></li>
-          <li><FaCog className='profile-icon' /> <Link to="/settings">Settings</Link></li>
-          <li><MdCardGiftcard className='profile-icon' /> <Link to="/giftcard">GiftCards</Link></li>
-          <li><MdContactSupport className='profile-icon'/> <Link to="/contactUs">ContactUs</Link></li>
-          <li><FaSignOutAlt className='profile-icon'/> 
-          <a href="#" onClick={handleLogout}>Logout</a></li>
+          <Link to="/profile"><li><FaUser className='profile-icon' /> Profile</li></Link>
+          <Link to="/orders"><li><FaBox className='profile-icon'/> Orders</li></Link>
+          <Link to="/settings"><li><FaCog className='profile-icon' /> Settings</li></Link>
+          <Link to="/giftcard"><li><MdCardGiftcard className='profile-icon' /> GiftCards</li></Link>
+          <Link to="/contactUs"><li><MdContactSupport className='profile-icon'/> ContactUs</li></Link>
+          <a href="#" onClick={handleLogout}><li><FaSignOutAlt className='profile-icon'/> Logout</li></a>
         </ul>
       </div>
     </nav>
